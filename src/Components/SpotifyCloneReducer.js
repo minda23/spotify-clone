@@ -32,6 +32,8 @@ const SELECT_ALBUM_ACTION = () => ({ type: "SELECT_ALBUM", value: "Summer hits" 
 */
 const CREATE_ALBUM_ACTION = () => ({ type: "CREATE_ALBUM", value: "new Album" });
 
+
+
 // dispatch je funkcia a do nej dame hodnoty našej action
 
 <button onClick={() => dispatch(SELECT_ALBUM_ACTION)} />
@@ -45,8 +47,9 @@ const myReducer = (currentState, dispatchedAction) => {
     & v reduceri mame aktualnu hodnotu a funkcia dispatchedaction.
     & vo switchi musime definovať aky typ akcie chceme.
     & potom tam definujeme premennu kde musime uviesť aj hodnotu ktoru chcem zmeniť za tu v aktualnom state
-    ? 
     
+    & niektore actions maju take iste vysledky
+    c
     
 
 

@@ -1,19 +1,54 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useReducer } from "react";
 import Image from 'next/image';
 import AlbumCard from "./AlbumCard";
 import './Albums.css';
 
+
 // za domacu sa naučiť useReducer
 
 
+const initialState = {
+
+    albums: [],
+
+}
+
+
+
+
+
+const myReducer = (state, dispatchedAction) => {
+    switch (dispatchedAction.type) {
+        case "UPDATE_ALBUMS":
+            return {
+                albums: [...dispatchedAction.value]
+            }
+        case "ADD_ALBUM":
+            return {
+                albums: [...state.albums, dispatchedAction.value]
+
+            }
+
+
+
+
+    }
+
+
+
+}
 const Albums = () => {
-    const [data, setData] = useState([]);
     const [name, setName] = useState("");
+
+    const [state, dispatch] = useReducer(myReducer, initialState);
+
+
 
 
     useEffect(() => {
-        fetch("http://localhost:8080/albums").then((response) => response.json()).then((data) => setData(data))
+        fetch("http://localhost:8080/albums").then((response) =>
+            response.json()).then((data) => dispatch({ type: "UPDATE_ALBUMS", value: data })) // dispatch musi tam pridať informaciu lebo priamo spušta akciu
         //Tuna musime o tieto data žiadať lebo použivame vlastne cyklus Map,  čiže to dáva správnu logiku.
 
     },);
@@ -29,7 +64,7 @@ const Albums = () => {
 
             //   const request = (album) => setData([...data, album]);
             .then((response) => response.json())
-            .then((album) => setData([...data, album]))
+            .then((album) => dispatch({ type: "ADD_ALBUM", value: album }))
             .catch((error) => console.error('Error creating album:', error));
     };
 
@@ -37,7 +72,7 @@ const Albums = () => {
 
     return (
         <div className="Albums-wrapper"> {/* čiže toto je koren komponentu album.js nemože to byť hned javascript */}
-            {!!data && data.map((album) => (
+            {!!state.albums && state.albums.map((album) => (
                 <div>
 
                     <AlbumCard AlbumProp={album} Image_path="images/images.jfif" image_height="50" image_width="50" />
