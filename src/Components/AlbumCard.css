@@ -1,5 +1,5 @@
 .wrapper {
-    margin-top: 3rem;
+    margin-top: 5rem;
     width: 23rem;
     height: 1rem;
     background-color: #1B1B1B;
@@ -13,7 +13,7 @@
     align-items: center;
 }
 
-.image {}
+
 
 .Information-title {
     text-align: left;
