@@ -3,6 +3,8 @@ import { useState, useEffect, useReducer } from "react";
 import Image from 'next/image';
 import AlbumCard from "./AlbumCard";
 import './Albums.css';
+import AudioList from "./audioList";
+
 
 
 // za domacu sa naučiť useReducer
@@ -11,6 +13,7 @@ import './Albums.css';
 const initialState = {
 
     albums: [],
+    selectedAlbum: null, // ked pridáme nejaky novy album vymažeme vybraty album
 
 }
 
@@ -22,12 +25,20 @@ const myReducer = (state, dispatchedAction) => {
     switch (dispatchedAction.type) {
         case "UPDATE_ALBUMS":
             return {
+                ...state,
                 albums: [...dispatchedAction.value]
             }
         case "ADD_ALBUM":
             return {
+                ...state,
                 albums: [...state.albums, dispatchedAction.value]
 
+            }
+
+        case "SELECT_ALBUM":
+            return {
+                ...state,
+                selectedAlbum: dispatchedAction.value
             }
 
 
@@ -38,7 +49,7 @@ const myReducer = (state, dispatchedAction) => {
 
 
 }
-const Albums = () => {
+const Albums = (props) => {
     const [name, setName] = useState("");
 
     const [state, dispatch] = useReducer(myReducer, initialState);
@@ -71,11 +82,16 @@ const Albums = () => {
 
 
     return (
+
+
         <div className="Albums-wrapper"> {/* čiže toto je koren komponentu album.js nemože to byť hned javascript */}
+
+            <AudioList state={state} />
+
             {!!state.albums && state.albums.map((album) => (
                 <div>
 
-                    <AlbumCard AlbumProp={album} Image_path="images/images.jfif" image_height="50" image_width="50" />
+                    <AlbumCard AlbumProp={album} dispatch={dispatch} Image_path="images/images.jfif" image_height="50" image_width="50" />
 
 
 
@@ -83,14 +99,19 @@ const Albums = () => {
 
                 </div>
 
+
+
             ))}
+
             {/*Toto je koniec korena komponentu */}
             <div>
                 <input type="text" onChange={event => setName(event.target.value)}></input>
                 <button type="text" onClick={createAlbum}>submit</button>
 
             </div>
+
         </div>
+
 
     );
 

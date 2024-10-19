@@ -7,7 +7,7 @@ const AlbumCard = (props) => {
 
 
 
-    const { Image_path, image_height, image_width, AlbumProp } = props;
+    const { Image_path, image_height, image_width, AlbumProp, dispatch } = props;
 
 
     return (
@@ -30,12 +30,23 @@ const AlbumCard = (props) => {
                     </div>
                 </div>
             </div>
-        </div>
+            <div>
+
+
+                <button className="select-button" onClick={() => dispatch({ type: "SELECT_ALBUM", value: AlbumProp })} >Select</button>
+            </div>
+        </div >
 
     )
 }
 
+/*
+&   čiže chceme dispatch využiť vlastne sa zavola akcia selectAlbum skrz dispatch
+* skusiť vytvoriť audiolist.js skusiť isť po bodoch z notion appky.
 
+
+
+*/
 
 
 // cely tento komponent sa vypisuje len ked mame data zo servera
