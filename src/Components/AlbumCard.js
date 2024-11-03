@@ -7,6 +7,8 @@ const AlbumCard = (props) => {
 
 
 
+
+
     const { Image_path, image_height, image_width, AlbumProp, dispatch } = props;
 
 

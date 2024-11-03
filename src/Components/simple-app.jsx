@@ -4,7 +4,7 @@ import React, { useReducer } from 'react';
 // 0,0,0,0,0,0,0,0,0,0  by bola 10,10,10,10,10 a až potom by bolo 20 
 function reducer(state, action) {
     switch (action.type) { // ak action.type button 1 je tak return....
-        case 'USE_BUTTON_1':
+        case 'USE_BUTTON_1': // case je vlastne return ...
             if (state.count === 10) {
                 return {
                     number: state.number + 10,

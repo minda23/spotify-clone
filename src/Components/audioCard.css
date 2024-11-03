@@ -1,0 +1,63 @@
+.parent {
+    display: flex;
+    flex-direction: row;
+
+
+}
+
+
+.list-songs {
+    color: yellow;
+    display: flex;
+    justify-content: center;
+
+}
+
+
+.songs-list {
+    color: black;
+    height: 30rem;
+    padding-top: 1.5rem;
+    background-color: #1F1F1F;
+    border-radius: 1rem;
+    color: white;
+    width: 45rem;
+    font-size: 1.1rem;
+    text-align: left;
+    padding-left: 3rem;
+
+}
+
+.album-title {
+    display: flex;
+    flex-direction: row;
+
+}
+
+.album-title-wrapper {
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-start;
+    background-color: #3F3F3F;
+    padding: 1rem;
+    border-radius: 1rem;
+    margin-bottom: 1.5rem;
+
+}
+
+.image {
+    align-self: flex-start;
+
+
+}
+
+.Album-artist-image {
+    border-radius: 3rem;
+    margin-bottom: 2rem;
+}
+
+
+.heading-album {
+    color: white;
+    align-self: flex-end;
+}

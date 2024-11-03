@@ -1,6 +1,4 @@
-.list-songs {
-    color: yellow;
+.album-title-wrapper {
     display: flex;
-    justify-content: center;
-
+    flex-wrap: wrap;
 }

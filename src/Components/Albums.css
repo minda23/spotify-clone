@@ -1,7 +1,65 @@
 .Albums-wrapper {
     padding-top: 1.5rem;
     background-color: #121212;
-    width: 40rem;
     margin-top: 3rem;
     margin-left: 2rem;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    position: relative;
+    border-radius: 1rem;
+}
+
+.songs {
+    display: flex;
+    align-self: flex-end;
+    justify-items: left;
+    position: absolute;
+    right: 3rem;
+}
+
+.albums {
+    background-color: #1E1E1E;
+    max-width: 35rem;
+    margin-left: 3rem;
+}
+
+.btn1 {
+    background-color: red;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+    .Albums-wrapper {
+        margin-left: 1rem;
+        margin-right: 1rem;
+        flex-wrap: wrap;
+    }
+
+    .songs {
+        right: 1rem;
+    }
+
+    .albums {
+        margin-left: 1rem;
+        margin-right: 1rem;
+        max-width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .Albums-wrapper {
+        margin-left: 0.5rem;
+        margin-right: 0.5rem;
+    }
+
+    .songs {
+        right: 0.5rem;
+    }
+
+    .albums {
+        margin-left: 0.5rem;
+        margin-right: 0.5rem;
+        max-width: 100%;
+    }
 }

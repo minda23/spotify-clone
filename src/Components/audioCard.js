@@ -1,22 +1,21 @@
-"use client"
-import { useState, useEffect } from "react";
+"use client";
+import './audioCard.css';
 
 
 const AudioCard = (props) => {
-
-
-    const { show_audios } = props;
-
-
+    const { oneSong } = props; // tuna si definujeme čo je to za prop či je to trojuholnik
     return (
-        <div className="audio-songs">
-            <p>{show_audios.audio}</p>
+        <div>
+
+            <div>
+                <p>{oneSong.title}</p>
+
+            </div>
         </div>
-    )
 
-}
+    );
+};
 
+// domáca uloha snažiť sa zvizualizovať tu stránku v css aby to bolo ako vo figme 
 
-
-
-export default AudioCard
+export default AudioCard;
