@@ -15,7 +15,9 @@ import AudioList from "./audioList";
 const initialState = {
 
     albums: [],
+    audioID: '',
     selectedAlbum: null, // ked pridáme nejaky novy album vymažeme vybraty album
+
 
 }
 
@@ -44,121 +46,141 @@ const myReducer = (state, dispatchedAction) => {
             }
 
         case "REMOVE_AUDIO_FROM_ALBUMS":
+            console.log(dispatchedAction.value.id) /
+                console.log(state.selectedAlbum.title) // toto som spravil sam , tuna som prišiel na to tak že vykonzolujeme ten selectovany album prave v tej akcii
+            // a vypiše sa mi album
+            // toto som spravil sam , prišiel som nato tak že ked kliknem na delete v debuggeri 
+            // button tak sa mi zobrazi prave to id v debuggeri pod dispatchedAction správne no a potom som kukal že skusim vykonzolvať len ten dispatchAction
+            // a už to fungovalo a vypisalo mi do konzoly to id pesničky pri ktorej je delete.
+
+            return {
+
+                ...state,
+
+                albums: state.selectedAlbum.audio.filter((audios) => audios.id),
+
+                // to audios je len parameter lubovoľny nazov pre anonymnu funkciu vo funkcii filter
 
 
-            if (state === audio.id) {
 
-                return state === dispatchedAction.id
+
             }
 
 
 
 
 
-            const Albums = (props) => {
 
-                const [name, setName] = useState("");
-
-                const [state, dispatch] = useReducer(myReducer, initialState);
+    }
 
 
 
+}
+const Albums = (props) => {
 
+    const [name, setName] = useState("");
 
-
-                useEffect(() => {
-                    fetch("http://localhost:8080/albums").then((response) =>
-                        response.json()).then((data) => dispatch({ type: "UPDATE_ALBUMS", value: data })) // dispatch musi tam pridať informaciu lebo priamo spušta akciu
-                    //Tuna musime o tieto data žiadať lebo použivame vlastne cyklus Map,  čiže to dáva správnu logiku.
-
-                },);
-                // Function to create a new album
-                const createAlbum = () => {
-                    fetch("http://localhost:8080/albums", {
-                        method: "POST",
-                        body: JSON.stringify({
-                            title: name,
-                            artist: "Lucas",
-                        }),
-
-                    })
+    const [state, dispatch] = useReducer(myReducer, initialState);
 
 
 
 
 
 
-                        //   const request = (album) => setData([...data, album]);
-                        .then((response) => response.json())
-                        .then((album) => dispatch({ type: "ADD_ALBUM", value: album }))
-                        .catch((error) => console.error('Error creating album:', error));
+    useEffect(() => {
+        fetch("http://localhost:8080/albums").then((response) =>
+            response.json()).then((data) => dispatch({ type: "UPDATE_ALBUMS", value: data })) // dispatch musi tam pridať informaciu lebo priamo spušta akciu
+        //Tuna musime o tieto data žiadať lebo použivame vlastne cyklus Map,  čiže to dáva správnu logiku.
 
+    },);
+    // Function to create a new album
+    const createAlbum = () => {
+        fetch("http://localhost:8080/albums", {
+            method: "POST",
+            body: JSON.stringify({
+                title: name,
+                artist: "Lucas",
+            }),
 
-
-
-                };
-
-
-
-
-                return (
-
-
-                    <div className="Albums-wrapper"> {/* čiže toto je koren komponentu album.js nemože to byť hned javascript */}
-
-
-
-                        {!!state.albums && state.albums.map((album) => (
-
-                            <div className="albums">
-
-
-                                <AlbumCard AlbumProp={album} dispatch={dispatch} Image_path="images/images.jfif" image_height="50" image_width="50" />
+        })
 
 
 
 
 
-                            </div>
+
+            //   const request = (album) => setData([...data, album]);
+            .then((response) => response.json())
+            .then((album) => dispatch({ type: "ADD_ALBUM", value: album }))
+            .catch((error) => console.error('Error creating album:', error));
+
+
+
+
+    };
+
+
+
+
+    return (
+
+
+
+        <div className="Albums-wrapper"> {/* čiže toto je koren komponentu album.js nemože to byť hned javascript */}
+
+
+
+            {!!state.albums && state.albums.map((album) => (
+
+                <div className="albums">
+
+
+                    <AlbumCard AlbumProp={album} dispatch={dispatch} Image_path="images/images.jfif" image_height="50" image_width="50" />
 
 
 
 
 
-                        ))}
-
-                        {/*Toto je koniec korena komponentu */}
-                        <div>
-                            <input type="text" onChange={event => setName(event.target.value)}></input>
-                            <button className="btn" type="text" onClick={createAlbum}>Delete</button>
-
-                        </div>
-
-                        <div className="songs">
+                </div>
 
 
-                            <AudioList state={state} dispatch={dispatch} deleteProp={state} />
 
-                            {/* ? ten state je priamo z toho reducera to čo posuvame z albums do audioCard 
+
+
+            ))}
+
+            {/*Toto je koniec korena komponentu */}
+            <div>
+                <input type="text" onChange={event => setName(event.target.value)}></input>
+                <button className="btn" type="text" onClick={createAlbum}>Delete</button>
+
+            </div>
+
+            <div className="songs">
+
+
+                <AudioList state={state} dispatch={dispatch} />
+
+                {/* ? ten state je priamo z toho reducera to čo posuvame z albums do audioCard 
                  čiže ten state je vlastnosť toho audiolistu ako napriklad že je okurhly no a potom musime zadefinovať
                  že chceme poslať z Album.js do audioListu a to je ten state ,ktory máme v reduceri a potom aj v cykle map*/}
 
 
-                        </div>
+            </div>
 
 
 
-                    </div>
+        </div>
 
 
 
 
 
-                );
+    );
 
-            };
+};
 
-            export default Albums;
+export default Albums;
 
 /*
 ?  const request = (album) => setData([...data, album]),
