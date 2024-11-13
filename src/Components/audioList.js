@@ -25,7 +25,7 @@ const audioList = (props) => { // props definujeme v audioList.js priamo v krabi
         * song list bude držať všetky pesničky
         */
 
-    const { state, dispatch, DeleteProp } = props;
+    const { state, dispatch, AddProp } = props;
 
 
     return (
@@ -61,7 +61,8 @@ const audioList = (props) => { // props definujeme v audioList.js priamo v krabi
 
 
 
-                                <AudioCard oneSong={oneAudio} dispatch={dispatch} DeleteProp={oneAudio} /> {/* a tuna si definujeme ten trojuholnik a posuvame to
+
+                                <AudioCard oneSong={oneAudio} dispatch={dispatch} DeleteProp={oneAudio} addToSelectedAlbum={oneAudio} AddProp={oneAudio} /> {/* a tuna si definujeme ten trojuholnik a posuvame to
                                 čiže ten prop oneSong posielame state to audioCard a vutri tej vlasntosti je pesnička*/}
 
 
@@ -74,20 +75,18 @@ const audioList = (props) => { // props definujeme v audioList.js priamo v krabi
                     )
                 })}
 
-                <div>
 
+            </div>
+            <div>
 
-
-
-
-                </div>
 
 
 
 
 
             </div>
-        </div>
+
+        </div >
 
 
 

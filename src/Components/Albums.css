@@ -18,6 +18,17 @@
     right: 3rem;
 }
 
+.delete-button1 {
+    padding: 1.5rem;
+    background-color: aquamarine;
+    color: black;
+    position: absolute;
+    top: 20rem;
+    right: 5rem;
+    font-size: 0.8rem;
+    z-index: 2;
+}
+
 .albums {
     background-color: #1E1E1E;
     max-width: 35rem;

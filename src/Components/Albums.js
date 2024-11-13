@@ -9,6 +9,25 @@ import AudioList from "./audioList";
 /*const AudioContext = React.createContext()*/
 
 
+// uloha bude najprv mať reducer action ADD_SONG_TO_SELECTED_ALBUM
+// tato akcia prida do aktualneho albumu novu pesničku do jeho audios.
+// budem musieť použivať spread operator aj na list aj na objekt.
+// prepisovať selected album
+
+// ked bude priliš tažke spraviť prvu action 
+// tak namiesto toho možem pridať gombik s nazvom duplikuj do každej pesničky.
+// ten gombik ma spusťať potom tu action ADD_SONG_TO_SELECTED_ALBUM.
+
+
+// druha reducer action bude ADD_SONG_TO_ALBUM 
+// bude prepisovať albums a budem tam mať v dispatched action bude album id aj song objekt
+// cieľ bude sa snažiť pridať ten objekt do spravneho albumu.
+// budem potrebovať aj funkciu filter
+
+
+// toto budem v buducnosti robiť
+// čiže budeme mať nejaky gombik na pesničke add_to_album 
+
 
 /*const AudioContext = React.createContext();
 */
@@ -40,6 +59,7 @@ const myReducer = (state, dispatchedAction) => {
             }
 
         case "SELECT_ALBUM":
+            console.log("ahoj")
             return {
                 ...state,
                 selectedAlbum: dispatchedAction.value
@@ -57,7 +77,8 @@ const myReducer = (state, dispatchedAction) => {
 
                 ...state,
 
-                albums: state.selectedAlbum.audio.filter((audios) => audios.id),
+                //albums: state.selectedAlbum.audio.filter((audios => audios.id !== dispatchedAction.value.id)),
+
 
                 // to audios je len parameter lubovoľny nazov pre anonymnu funkciu vo funkcii filter
 
@@ -66,6 +87,68 @@ const myReducer = (state, dispatchedAction) => {
 
             }
 
+        case "ADD_AUDIO_TO_SELECTED_ALBUM":
+            const newAudio = dispatchedAction.value;
+            console.log(dispatchedAction)
+            console.log(state.selectedAlbum.audio)
+
+            return {
+
+                ...state,
+                selectedAlbum: { ...state.selectedAlbum, audio: [...state.selectedAlbum.audio, newAudio] },
+
+
+                // teraz to pridavame do albumu ale nie do audia.
+                // musim sa nejak dostať do audia
+
+
+
+
+            }
+
+        // uloha bude najprv mať reducer action ADD_AUDIO_TO_SELECTED_ALBUM
+        // tato akcia prida do aktualneho albumu novu pesničku do jeho audios.
+        // budem musieť použivať spread operator aj na list aj na objekt.
+        // prepisovať selected album
+
+        //Dobré ráno, rozdiel medzi prvú a druhou úlohou mal byť len že
+        // prvá úloha pridá pesničku do toho istého / aktuálne vybratého albumu, 
+        //a druhá úloha ju umožní pridať do hocijakého albumu. 
+        //Tie samotné gombíky sú ako keby časť úlohy 
+        //1.5 ktorý bol dizajnovaný na to pomôcť splniť úlohu 1. keď si s ňou nebudte isty.
+
+
+        case "ADD_SONG_TO_ALBUM":
+
+            console.log(state.albums)
+
+            return {
+
+                ...state,
+                selectedAlbum: [...state.albums.filter((album) => album.includes(id))],
+
+
+                // budem mať album id a song objekt
+                // my chceme v selectovanom albume 
+                // cieľ bude pridať  ten objekt do správneho albumu a prepisať ten cely albums list
+                // čiže pri každej pesničke bude tlačidlo select skrze ktore si vyberieme album
+                // 
+
+
+
+                //chceme pesničku pridať do hociakeho albumu
+                // čiže potrebujeme spreadovať state.potom albumy a zistiť ktory je to album 
+            }
+
+
+        // druha reducer action bude ADD_SONG_TO_ALBUM 
+        // bude prepisovať albums a budem tam mať v dispatched action bude album id aj song objekt
+        // cieľ bude sa snažiť pridať ten objekt do spravneho albumu.
+        // budem potrebovať aj funkciu filter
+
+
+        // toto budem v buducnosti robiť
+        // čiže budeme mať nejaky gombik na pesničke add_to_album 
 
 
 
@@ -77,6 +160,7 @@ const myReducer = (state, dispatchedAction) => {
 
 }
 const Albums = (props) => {
+    const { } = props;
 
     const [name, setName] = useState("");
 
@@ -101,6 +185,8 @@ const Albums = (props) => {
                 title: name,
                 artist: "Lucas",
             }),
+
+
 
         })
 
@@ -152,9 +238,11 @@ const Albums = (props) => {
             {/*Toto je koniec korena komponentu */}
             <div>
                 <input type="text" onChange={event => setName(event.target.value)}></input>
-                <button className="btn" type="text" onClick={createAlbum}>Delete</button>
+                <button className="btn" type="text" onClick={createAlbum}>ADD</button>
 
             </div>
+
+
 
             <div className="songs">
 
