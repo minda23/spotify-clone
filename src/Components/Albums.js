@@ -38,6 +38,7 @@ const initialState = {
     selectedAlbum: null, // ked pridáme nejaky novy album vymažeme vybraty album
 
 
+
 }
 
 
@@ -89,22 +90,105 @@ const myReducer = (state, dispatchedAction) => {
 
         case "ADD_AUDIO_TO_SELECTED_ALBUM":
             const newAudio = dispatchedAction.value;
-            console.log(dispatchedAction)
-            console.log(state.selectedAlbum.audio)
+            console.log(...state.albums)
+
 
             return {
+                //    const person = {firstName: "John", lastName: "Doe",};
+
 
                 ...state,
-                selectedAlbum: { ...state.selectedAlbum, audio: [...state.selectedAlbum.audio, newAudio] },
+                // vytvárame tu novy objekt od riadku 95 do 107  a ten objekt ma pole 
+                // selectedAlbum ktory spreadujeme 
+                selectedAlbum: { ...state.selectedAlbum, audio: [...state.selectedAlbum.audio, newAudio], },
 
 
-                // teraz to pridavame do albumu ale nie do audia.
-                // musim sa nejak dostať do audia
+
+
+
+
+
 
 
 
 
             }
+
+        case "ADD_SONG_TO_ALBUM":
+
+            console.log(state.albums)
+            console.log(dispatchedAction.value)
+
+            return {
+
+                ...state,
+                albums: [...state.albums.filter((album) => album.title == dispatchedAction.value ? true : false),
+
+
+                ]
+
+
+
+
+
+
+            }
+
+
+        case "RETURN_ALBUM_WITH_CHANGE":
+
+            console.log(state.albums)
+
+            return {
+
+                ...state,
+                albums: [...state.albums, dispatchedAction.value]
+
+
+
+
+
+
+
+            }
+
+
+
+
+
+        // Výsledkom akcie bude aktualizovaný stav, ktorý bude obsahovať:
+
+        // Pôvodný zoznam albumov (so všetkými ich skladbami).
+        // Aktualizovaný album, do ktorého sa pridá zvolená skladba (audio).
+
+
+
+        // čo chcem posunuť ako parameter toho action budu dve parametre title - meno albumu
+        // a druhy parameter bude cely objekt z listu audio
+        // a konkretne podľa toho určime že ked klikneme na gombik duplicate , tak sa spusti action z touto pesničkou
+        // ten parameter toho albumu bude AlbumOne. čiže zatiaľ do toho isteho.
+        // dnu v reduceri bude viac krokov , prvy bude vyfiltrovať album z listu albumov podľa mena ktory dostanem z tej action čiže
+        //AlbumOne
+        //budeme mať tam podmienkovu funkciu
+        // druhy krok bude pridať tu pesničku do toho albumu , ktory som vyfiltroval
+        // returnovany objekt bude mať predošli state a novy updatovany list albumov.
+
+        // bonus uloha na pomoc že si pridam duplikovany album s tou pesničkou keby niečo. 
+
+
+
+
+
+
+
+
+        // teraz to pridavame do albumu ale nie do audia.
+        // musim sa nejak dostať do audia
+
+
+
+
+
 
         // uloha bude najprv mať reducer action ADD_AUDIO_TO_SELECTED_ALBUM
         // tato akcia prida do aktualneho albumu novu pesničku do jeho audios.
@@ -118,37 +202,16 @@ const myReducer = (state, dispatchedAction) => {
         //1.5 ktorý bol dizajnovaný na to pomôcť splniť úlohu 1. keď si s ňou nebudte isty.
 
 
-        case "ADD_SONG_TO_ALBUM":
-
-            console.log(state.albums)
-
-            return {
-
-                ...state,
-                selectedAlbum: [...state.albums.filter((album) => album.includes(id))],
-
-
-                // budem mať album id a song objekt
-                // my chceme v selectovanom albume 
-                // cieľ bude pridať  ten objekt do správneho albumu a prepisať ten cely albums list
-                // čiže pri každej pesničke bude tlačidlo select skrze ktore si vyberieme album
-                // 
 
 
 
-                //chceme pesničku pridať do hociakeho albumu
-                // čiže potrebujeme spreadovať state.potom albumy a zistiť ktory je to album 
-            }
 
 
-        // druha reducer action bude ADD_SONG_TO_ALBUM 
-        // bude prepisovať albums a budem tam mať v dispatched action bude album id aj song objekt
-        // cieľ bude sa snažiť pridať ten objekt do spravneho albumu.
-        // budem potrebovať aj funkciu filter
 
 
-        // toto budem v buducnosti robiť
-        // čiže budeme mať nejaky gombik na pesničke add_to_album 
+
+
+
 
 
 
