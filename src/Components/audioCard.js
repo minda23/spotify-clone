@@ -3,7 +3,7 @@ import './audioCard.css';
 
 
 const AudioCard = (props) => {
-    const { oneSong, dispatch, DeleteProp, AddProp, addSong } = props; // tuna si definujeme čo je to za prop či je to trojuholnik
+    const { oneSong, dispatch, DeleteProp, AddProp } = props; // tuna si definujeme čo je to za prop či je to trojuholnik
     return (
         <div className='buttons'>
             <div>
@@ -27,14 +27,30 @@ const AudioCard = (props) => {
 
 
             <button className="duplicate-btn" onClick={() => dispatch({
-                type: "ADD_SONG_TO_ALBUM", value: {
-                    "title": "Album One",
-                    "audio": addSong
+                type: "ADD_SONG_TO_ALBUM", value:
+                    "Album One",
+                value1: AddProp
 
-
-
-                }
             })}>ADD_SONG_TO_ALBUM</button>
+
+
+
+
+
+
+
+
+
+            <button className="duplicate-btn" onClick={() => dispatch({
+                type: "UPDATE_FILTERED_ALBUMS", value2: AddProp
+
+
+
+
+
+
+
+            })}>UPDATE_ALBUM</button>
         </div>
 
 

@@ -115,113 +115,171 @@ const myReducer = (state, dispatchedAction) => {
             }
 
         case "ADD_SONG_TO_ALBUM":
+            const newAudio1 = dispatchedAction.value1;
 
-            console.log(state.albums)
-            console.log(dispatchedAction.value)
+
+            //const count = 2 * 3
+            //const count1 = count + 5;
+
+            const pole = [1, 2, 3]
+
+            const ahoj = pole[0]
+
+            // čiže chcem najprv vyfiltrovať album ktory ma identicke meno ako dispatchedAction.value 
+            const OneAlbumList = state.albums.filter((album) => album.title === dispatchedAction.value ? true : false)
+            const OneAlbum = OneAlbumList[0]
+
+            // potom uložiť  newAudio1 do toho OneAlbum
+
+            const One_Album_With_New_Audio = {
+
+                ...OneAlbum,    // vyberame všetky predošle hodnoty
+                audio: [...OneAlbum.audio, newAudio1]
+
+                //  title : "Rap caviar" // tuna prepisujem titulok One albumu
+
+
+
+                // spread operator može spreadovať len objekty alebo listy lebo sa daju rozdeliť na menšie časti
+                // idčko alebo string alebo čislo sa neda spreadovať.
+                // najprv robime tu bodku vyberame .title[0] = AlbumOne,
+                // 
+            }
+            // a potom chcem znovu uložiť ten filtrovany album do listu albumov
+
+
+            const albums1 = state.albums.map((album) => album.title === dispatchedAction.value ? One_Album_With_New_Audio : album)
+
+
+
+            //const pole2 = [5,6,7]
+
+            //const pole3 = pole2.map((nasobenie) => nasobenie === 5 ? nasobenie * 2 : nasobenie / 2 ) // 
 
             return {
 
                 ...state,
-                albums: [...state.albums.filter((album) => album.title == dispatchedAction.value ? true : false),
 
 
-                ]
+                albums: albums1
 
 
 
 
+
+                // 2 * 3 + 5 
 
 
             }
 
 
-        case "RETURN_ALBUM_WITH_CHANGE":
 
-            console.log(state.albums)
+
+
+
+
+
+
+        case "UPDATE_FILTERED_ALBUMS":
+
 
             return {
 
                 ...state,
-                albums: [...state.albums, dispatchedAction.value]
-
-
-
-
-
+                albums: dispatchedAction.value
 
 
             }
-
-
-
-
-
-        // Výsledkom akcie bude aktualizovaný stav, ktorý bude obsahovať:
-
-        // Pôvodný zoznam albumov (so všetkými ich skladbami).
-        // Aktualizovaný album, do ktorého sa pridá zvolená skladba (audio).
-
-
-
-        // čo chcem posunuť ako parameter toho action budu dve parametre title - meno albumu
-        // a druhy parameter bude cely objekt z listu audio
-        // a konkretne podľa toho určime že ked klikneme na gombik duplicate , tak sa spusti action z touto pesničkou
-        // ten parameter toho albumu bude AlbumOne. čiže zatiaľ do toho isteho.
-        // dnu v reduceri bude viac krokov , prvy bude vyfiltrovať album z listu albumov podľa mena ktory dostanem z tej action čiže
-        //AlbumOne
-        //budeme mať tam podmienkovu funkciu
-        // druhy krok bude pridať tu pesničku do toho albumu , ktory som vyfiltroval
-        // returnovany objekt bude mať predošli state a novy updatovany list albumov.
-
-        // bonus uloha na pomoc že si pridam duplikovany album s tou pesničkou keby niečo. 
-
-
-
-
-
-
-
-
-        // teraz to pridavame do albumu ale nie do audia.
-        // musim sa nejak dostať do audia
-
-
-
-
-
-
-        // uloha bude najprv mať reducer action ADD_AUDIO_TO_SELECTED_ALBUM
-        // tato akcia prida do aktualneho albumu novu pesničku do jeho audios.
-        // budem musieť použivať spread operator aj na list aj na objekt.
-        // prepisovať selected album
-
-        //Dobré ráno, rozdiel medzi prvú a druhou úlohou mal byť len že
-        // prvá úloha pridá pesničku do toho istého / aktuálne vybratého albumu, 
-        //a druhá úloha ju umožní pridať do hocijakého albumu. 
-        //Tie samotné gombíky sú ako keby časť úlohy 
-        //1.5 ktorý bol dizajnovaný na to pomôcť splniť úlohu 1. keď si s ňou nebudte isty.
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
 
     }
+    //
+
+    // Takže v tom reducery musite rozdeliť čo chcete spraviť na 3 časti: 
+    //vyfiltrovať ten album ktorý chcete, pridať doňho pesničku,
+    //a uložiť ho potom naspäť do albums.
+
+    //"Uložiť album do albumov znamená nahradiť pôvodný album v zozname albums jeho upravenou verziou, ktorá už obsahuje pridanú pesničku."
+    // Kľudne to môžete urobiť aj na osobit riadkoch alebo v osobitných premennach.
+    //Potom, v tom buttone chcete posielať aj pesničku aj meno do ktorého albumu ju chcete dať. Aktuálne posielate len meno.
+
+
+
+
+
+
+
+
+
+
+    // Výsledkom akcie bude aktualizovaný stav, ktorý bude obsahovať:
+
+    // Pôvodný zoznam albumov (so všetkými ich skladbami).
+    // Aktualizovaný album, do ktorého sa pridá zvolená skladba (audio).
+
+
+
+    // čo chcem posunuť ako parameter toho action budu dve parametre title - meno albumu
+    // a druhy parameter bude cely objekt z listu audio
+    // a konkretne podľa toho určime že ked klikneme na gombik duplicate , tak sa spusti action z touto pesničkou
+    // ten parameter toho albumu bude AlbumOne. čiže zatiaľ do toho isteho.
+    // dnu v reduceri bude viac krokov , prvy bude vyfiltrovať album z listu albumov podľa mena ktory dostanem z tej action čiže
+    //AlbumOne
+    //budeme mať tam podmienkovu funkciu
+    // druhy krok bude pridať tu pesničku do toho albumu , ktory som vyfiltroval
+    // returnovany objekt bude mať predošli state a novy updatovany list albumov.
+
+    // bonus uloha na pomoc že si pridam duplikovany album s tou pesničkou keby niečo. 
+
+
+
+
+
+
+
+
+    // teraz to pridavame do albumu ale nie do audia.
+    // musim sa nejak dostať do audia
+
+
+
+
+
+
+    // uloha bude najprv mať reducer action ADD_AUDIO_TO_SELECTED_ALBUM
+    // tato akcia prida do aktualneho albumu novu pesničku do jeho audios.
+    // budem musieť použivať spread operator aj na list aj na objekt.
+    // prepisovať selected album
+
+    //Dobré ráno, rozdiel medzi prvú a druhou úlohou mal byť len že
+    // prvá úloha pridá pesničku do toho istého / aktuálne vybratého albumu, 
+    //a druhá úloha ju umožní pridať do hocijakého albumu. 
+    //Tie samotné gombíky sú ako keby časť úlohy 
+    //1.5 ktorý bol dizajnovaný na to pomôcť splniť úlohu 1. keď si s ňou nebudte isty.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
 }
+
+
+
+
 const Albums = (props) => {
     const { } = props;
 
