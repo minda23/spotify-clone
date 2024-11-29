@@ -127,7 +127,7 @@ const myReducer = (state, dispatchedAction) => {
 
             // čiže chcem najprv vyfiltrovať album ktory ma identicke meno ako dispatchedAction.value 
             const OneAlbumList = state.albums.filter((album) => album.title === dispatchedAction.value ? true : false)
-            const OneAlbum = OneAlbumList[0]
+            const OneAlbum = OneAlbumList[0] // tuna pridavame ten fifiltrovany album do premmenej 
 
             // potom uložiť  newAudio1 do toho OneAlbum
 
@@ -136,7 +136,7 @@ const myReducer = (state, dispatchedAction) => {
                 ...OneAlbum,    // vyberame všetky predošle hodnoty
                 audio: [...OneAlbum.audio, newAudio1]
 
-                //  title : "Rap caviar" // tuna prepisujem titulok One albumu
+
 
 
 
@@ -156,6 +156,8 @@ const myReducer = (state, dispatchedAction) => {
 
             //const pole3 = pole2.map((nasobenie) => nasobenie === 5 ? nasobenie * 2 : nasobenie / 2 ) // 
 
+
+            // tuna prepisujeme tie albums s albumami a s tym jednym albumom s aktualizovanou hodnotou
             return {
 
                 ...state,
@@ -288,19 +290,29 @@ const Albums = (props) => {
     const [state, dispatch] = useReducer(myReducer, initialState);
 
 
+    // uloha bude : 
+    // toto je novy url :  /albums/add-audio
+    // cez tento url ako pridavame na front end audio do toho albumu 
+    // tak to iste chceme poslať tomu backendu
+    // čiže pošleme len to ID
+
+
+    // naštudovať si ako funguje Get Post A ako sa tam menia parametre body 
 
 
 
 
     useEffect(() => {
-        fetch("http://localhost:8080/albums").then((response) =>
+        fetch("http://localhost:8080/albums").then((response) => // dostavame list albumov ten prvy fetch
             response.json()).then((data) => dispatch({ type: "UPDATE_ALBUMS", value: data })) // dispatch musi tam pridať informaciu lebo priamo spušta akciu
         //Tuna musime o tieto data žiadať lebo použivame vlastne cyklus Map,  čiže to dáva správnu logiku.
 
     },);
+
+
     // Function to create a new album
     const createAlbum = () => {
-        fetch("http://localhost:8080/albums", {
+        fetch("http://localhost:8080/albums", { // cez tento fetch dostavame novy album
             method: "POST",
             body: JSON.stringify({
                 title: name,
@@ -329,55 +341,70 @@ const Albums = (props) => {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
     return (
 
 
-
-        <div className="Albums-wrapper"> {/* čiže toto je koren komponentu album.js nemože to byť hned javascript */}
-
-
-
-            {!!state.albums && state.albums.map((album) => (
-
-                <div className="albums">
-
-
-                    <AlbumCard AlbumProp={album} dispatch={dispatch} Image_path="images/images.jfif" image_height="50" image_width="50" />
+        <div className="wrapper-main">
+            <div className="Albums-wrapper"> {/* čiže toto je koren komponentu album.js nemože to byť hned javascript */}
 
 
 
+                {!!state.albums && state.albums.map((album) => (
+
+                    <div className="albums">
+
+
+                        <AlbumCard AlbumProp={album} dispatch={dispatch} Image_path="images/images.jfif" image_height="50" image_width="50" />
+
+
+
+
+
+                    </div>
+
+
+
+
+
+                ))}
+
+                {/*Toto je koniec korena komponentu */}
+                <div>
+                    <input type="text" onChange={event => setName(event.target.value)}></input>
+                    <button className="btn" type="text" onClick={createAlbum}>ADD</button>
+
+                </div>
+
+
+
+                <div className="songs">
+
+
+                    <AudioList state={state} dispatch={dispatch} />
+
+                    {/* ? ten state je priamo z toho reducera to čo posuvame z albums do audioCard 
+                 čiže ten state je vlastnosť toho audiolistu ako napriklad že je okurhly no a potom musime zadefinovať
+                 že chceme poslať z Album.js do audioListu a to je ten state ,ktory máme v reduceri a potom aj v cykle map*/}
 
 
                 </div>
 
 
 
-
-
-            ))}
-
-            {/*Toto je koniec korena komponentu */}
-            <div>
-                <input type="text" onChange={event => setName(event.target.value)}></input>
-                <button className="btn" type="text" onClick={createAlbum}>ADD</button>
-
             </div>
-
-
-
-            <div className="songs">
-
-
-                <AudioList state={state} dispatch={dispatch} />
-
-                {/* ? ten state je priamo z toho reducera to čo posuvame z albums do audioCard 
-                 čiže ten state je vlastnosť toho audiolistu ako napriklad že je okurhly no a potom musime zadefinovať
-                 že chceme poslať z Album.js do audioListu a to je ten state ,ktory máme v reduceri a potom aj v cykle map*/}
-
-
-            </div>
-
-
 
         </div>
 

@@ -11,6 +11,8 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    flex-wrap: wrap;
+
 }
 
 .select-button {
@@ -28,4 +30,18 @@
 
 .Information-title {
     text-align: left;
+}
+
+@media (max-width: 768px) {
+    .wrapper {
+        max-width: 50%;
+        padding-bottom: 6rem;
+        margin-left: 1rem;
+
+    }
+
+    .songs {
+        position: relative;
+    }
+
 }

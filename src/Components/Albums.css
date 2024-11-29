@@ -1,8 +1,7 @@
 .Albums-wrapper {
-    padding-top: 1.5rem;
+    padding: 1.5rem;
     background-color: #121212;
-    margin-top: 3rem;
-    margin-left: 2rem;
+    margin: 3rem 2rem;
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
@@ -39,38 +38,46 @@
     background-color: red;
 }
 
+/* General default styles */
+body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
 /* Responsive styles */
-@media (max-width: 768px) {
+@media (max-width: 1080px) {
     .Albums-wrapper {
-        margin-left: 1rem;
-        margin-right: 1rem;
+        margin: 2rem 1rem;
         flex-wrap: wrap;
+        gap: 1rem;
     }
 
     .songs {
-        right: 1rem;
+        position: relative;
+        margin-top: 5rem;
+        align-self: flex-start;
     }
 
     .albums {
-        margin-left: 1rem;
-        margin-right: 1rem;
+        margin: 1rem;
         max-width: 100%;
     }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 768px) {
     .Albums-wrapper {
-        margin-left: 0.5rem;
-        margin-right: 0.5rem;
+
+        flex-direction: column;
+    }
+
+    .wraper-main {
+        margin-left: 1rem;
+        margin-right: -1rem;
     }
 
     .songs {
-        right: 0.5rem;
+        position: relative;
     }
 
-    .albums {
-        margin-left: 0.5rem;
-        margin-right: 0.5rem;
-        max-width: 100%;
-    }
 }

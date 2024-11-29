@@ -1,9 +1,48 @@
 "use client";
 import './audioCard.css';
+import { useState, useEffect, useReducer, useContext } from "react";
 
 
 const AudioCard = (props) => {
     const { oneSong, dispatch, DeleteProp, AddProp } = props; // tuna si definujeme čo je to za prop či je to trojuholnik
+
+
+    useEffect(() => {
+        fetch("http://localhost:8080/albums/add-audio").then((response) => //  toto je get request
+            response.json()).then((data) => dispatch({ type: "ADD_SONG_TO_ALBUM", value: data })) // dispatch musi tam pridať informaciu lebo priamo spušta akciu
+        //Tuna musime o tieto data žiadať lebo použivame vlastne cyklus Map,  čiže to dáva správnu logiku.
+
+    }, []);
+
+
+    const addAudio = () => {
+        fetch("http://localhost:8080/albums/add-audio", { // cez tento fetch pridavame audio toto je post request
+            method: "POST",
+            body: JSON.stringify({
+                "albumid": 3,
+                "audioid": 6
+            }),
+
+
+
+        })
+
+
+
+
+
+
+            //   const request = (album) => setData([...data, album]);
+            .then((response) => response.json())
+            .then((audio) => dispatch({ type: "ADD_SONG_TO_ALBUM", value: audio }))
+            .catch((error) => console.error('Error adding audio:', error));
+
+
+
+
+    };
+
+
     return (
         <div className='buttons'>
             <div>
@@ -28,8 +67,8 @@ const AudioCard = (props) => {
 
             <button className="duplicate-btn" onClick={() => dispatch({
                 type: "ADD_SONG_TO_ALBUM", value:
-                    "Album One",
-                value1: AddProp
+                    "Album One"
+
 
             })}>ADD_SONG_TO_ALBUM</button>
 
@@ -51,11 +90,26 @@ const AudioCard = (props) => {
 
 
             })}>UPDATE_ALBUM</button>
+
+            <button
+                className="add-audio-btn"
+                onClick={addAudio}
+            >
+                Add Audio
+            </button>
         </div>
 
 
     );
 };
+
+
+
+
+
+
+// Function to create a new album
+
 
 // domáca uloha snažiť sa zvizualizovať tu stránku v css aby to bolo ako vo figme 
 
