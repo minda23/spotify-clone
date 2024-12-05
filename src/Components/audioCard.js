@@ -1,10 +1,16 @@
 "use client";
 import './audioCard.css';
 import { useState, useEffect, useReducer, useContext } from "react";
+import DataContext from "./DataContext"
 
 
 const AudioCard = (props) => {
-    const { oneSong, dispatch, DeleteProp, AddProp } = props; // tuna si definujeme čo je to za prop či je to trojuholnik
+    const { oneSong, DeleteProp, AddProp } = props; // tuna si definujeme čo je to za prop či je to trojuholnik
+
+
+    const [state, dispatch] = useContext(DataContext)
+
+
 
 
     const addAudio = () => {
@@ -80,6 +86,16 @@ const AudioCard = (props) => {
 
 
             })}>UPDATE_ALBUM</button>
+
+            <div>
+
+
+                <select name="pets" id="pet-select">
+                    <option value="">--Please choose an option--</option>
+
+                </select>
+            </div>
+
 
         </div>
 

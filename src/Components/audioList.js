@@ -62,7 +62,7 @@ const audioList = (props) => { // props definujeme v audioList.js priamo v krabi
 
 
 
-                                <AudioCard oneSong={oneAudio} dispatch={dispatch} addToSelectedAlbum={oneAudio} AddProp={oneAudio} addSong={oneAudio} /> {/* a tuna si definujeme ten trojuholnik a posuvame to
+                                <AudioCard oneSong={oneAudio} addToSelectedAlbum={oneAudio} AddProp={oneAudio} addSong={oneAudio} /> {/* a tuna si definujeme ten trojuholnik a posuvame to
                                 čiže ten prop oneSong posielame state to audioCard a vutri tej vlasntosti je pesnička*/}
 
 

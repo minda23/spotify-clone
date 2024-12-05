@@ -1,12 +1,16 @@
 "use client";
 import React from "react";
-import { useState, useEffect, useReducer, useContext } from "react";
+import { useState, useEffect, useReducer, } from "react";
 import AlbumCard from "./AlbumCard";
 import './Albums.css';
 import AudioList from "./audioList";
+import DataContext from "./DataContext"
+
+
 
 // use context rodič hľada a ide hore a hľada deti najbližšieho providera v strome a ten vypiše alebo urobi s tym niečo
-/*const AudioContext = React.createContext()*/
+
+
 
 
 // uloha bude najprv mať reducer action ADD_SONG_TO_SELECTED_ALBUM
@@ -290,6 +294,8 @@ const Albums = (props) => {
     const [state, dispatch] = useReducer(myReducer, initialState);
 
 
+
+
     // uloha bude : 
     // toto je novy url :  /albums/add-audio
     // cez tento url ako pridavame na front end audio do toho albumu 
@@ -356,22 +362,39 @@ const Albums = (props) => {
 
     return (
 
-
-        <div className="wrapper-main">
-            <div className="Albums-wrapper"> {/* čiže toto je koren komponentu album.js nemože to byť hned javascript */}
-
-
-
-                {!!state.albums && state.albums.map((album) => (
-
-                    <div className="albums">
+        <DataContext.Provider value={[
+            state, dispatch
+        ]} >
 
 
-                        <AlbumCard AlbumProp={album} dispatch={dispatch} Image_path="images/images.jfif" image_height="50" image_width="50" />
+            <div className="wrapper-main">
+                <div className="Albums-wrapper"> {/* čiže toto je koren komponentu album.js nemože to byť hned javascript */}
 
 
 
+                    {!!state.albums && state.albums.map((album) => (
 
+                        <div className="albums">
+
+
+                            <AlbumCard AlbumProp={album} dispatch={dispatch} Image_path="images/images.jfif" image_height="50" image_width="50" />
+
+
+
+
+
+                        </div>
+
+
+
+
+
+                    ))}
+
+                    {/*Toto je koniec korena komponentu */}
+                    <div>
+                        <input type="text" onChange={event => setName(event.target.value)}></input>
+                        <button className="btn" type="text" onClick={createAlbum}>ADD</button>
 
                     </div>
 
@@ -379,40 +402,27 @@ const Albums = (props) => {
 
 
 
-                ))}
 
-                {/*Toto je koniec korena komponentu */}
-                <div>
-                    <input type="text" onChange={event => setName(event.target.value)}></input>
-                    <button className="btn" type="text" onClick={createAlbum}>ADD</button>
-
-                </div>
+                    <div className="songs">
 
 
+                        <AudioList state={state} dispatch={dispatch} />
 
-
-
-
-                <div className="songs">
-
-
-                    <AudioList state={state} dispatch={dispatch} />
-
-                    {/* ? ten state je priamo z toho reducera to čo posuvame z albums do audioCard 
+                        {/* ? ten state je priamo z toho reducera to čo posuvame z albums do audioCard 
                  čiže ten state je vlastnosť toho audiolistu ako napriklad že je okurhly no a potom musime zadefinovať
                  že chceme poslať z Album.js do audioListu a to je ten state ,ktory máme v reduceri a potom aj v cykle map*/}
 
 
+                    </div>
+
+
+
                 </div>
-
-
 
             </div>
 
-        </div>
 
-
-
+        </DataContext.Provider>
 
 
     );
