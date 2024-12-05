@@ -11,8 +11,8 @@ const AudioCard = (props) => {
         fetch("http://localhost:8080/albums/add-audio", { // cez tento fetch pridavame audio toto je post request
             method: "POST",
             body: JSON.stringify({
-                "albumid": 6,
-                "audioid": 5
+                "albumid": 8,
+                "audioid": oneSong.id
             }),
 
 
