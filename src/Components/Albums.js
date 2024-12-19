@@ -38,7 +38,6 @@ import DataContext from "./DataContext"
 const initialState = {
 
     albums: [],
-    audioID: '',
     selectedAlbum: null, // ked pridáme nejaky novy album vymažeme vybraty album
 
 

@@ -26,6 +26,12 @@ const AlbumCard = (props) => {
                     <div className="Information-title">
                         {AlbumProp.title}
 
+
+
+                    </div>
+
+                    <div>
+                        {AlbumProp.id}
                     </div>
                     <div className="playlist-songs">
                         {!!AlbumProp.audio && AlbumProp.audio.length}

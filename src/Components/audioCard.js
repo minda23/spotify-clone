@@ -10,6 +10,7 @@ const AudioCard = (props) => {
 
     const [state, dispatch] = useContext(DataContext)
 
+    const [pickedAlbum, setPickedAlbum] = useState(null);
 
 
 
@@ -17,7 +18,7 @@ const AudioCard = (props) => {
         fetch("http://localhost:8080/albums/add-audio", { // cez tento fetch pridavame audio toto je post request
             method: "POST",
             body: JSON.stringify({
-                "albumid": 8,
+                "albumid": pickedAlbum.id,
                 "audioid": oneSong.id
             }),
 
@@ -90,14 +91,36 @@ const AudioCard = (props) => {
             <div>
 
 
-                <select name="pets" id="pet-select">
-                    <option value="">--Please choose an option--</option>
+
+
+                <select
+                    onChange={(e) => {
+                        const filteredAlbums = state.albums.filter((album) => album.title === e.target.value)
+                        setPickedAlbum(filteredAlbums[0]); // to znamená že je to prvy prvok z albumov , čiže ked sa zhoduje prave s tym čo sme klikli 
+                        // potom tam možeme pridať cez funkciu add_audio piesen.
+
+
+                    }
+
+                    }>
+                    <option value="state.id">
+
+                    </option>
+
+                    {state.albums.map((album) => <option key={album.title} value={album.title}>{album.title}</option>)
+
+
+                    }
+
 
                 </select>
+
+
+
             </div>
 
 
-        </div>
+        </div >
 
 
     );

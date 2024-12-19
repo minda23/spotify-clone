@@ -4,6 +4,7 @@ import AudioCard from './audioCard';
 
 
 
+
 // ako domácu ulohu si môžem skusiť :) 
 // chceme vytvoriť v reduceri novu funkciu REMOVE_AUDIO_FROM_ALBUMS, v tom reduceri sa spusti nejaky console.log a vytlači sa meno pesničky
 // ktoru chcem vymazať a meno toho albumu z ktoreho chceme vymazať tu piesen
@@ -62,7 +63,7 @@ const audioList = (props) => { // props definujeme v audioList.js priamo v krabi
 
 
 
-                                <AudioCard oneSong={oneAudio} addToSelectedAlbum={oneAudio} AddProp={oneAudio} addSong={oneAudio} /> {/* a tuna si definujeme ten trojuholnik a posuvame to
+                                <AudioCard oneSong={oneAudio} AddProp={oneAudio} /> {/* a tuna si definujeme ten trojuholnik a posuvame to
                                 čiže ten prop oneSong posielame state to audioCard a vutri tej vlasntosti je pesnička*/}
 
 
