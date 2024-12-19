@@ -3,6 +3,8 @@ import './audioCard.css';
 import { useState, useEffect, useReducer, useContext } from "react";
 import DataContext from "./DataContext"
 
+
+
 const AudioCard = (props) => {
     const { oneSong, DeleteProp, AddProp } = props; // tuna si definujeme čo je to za prop či je to trojuholnik
     const [state, dispatch] = useContext(DataContext)
@@ -38,8 +40,9 @@ const AudioCard = (props) => {
 
             <button className="duplicate-btn" onClick={() => {
                 addAudio();
+
                 //  dispatch({ type: "ADD_SONG_TO_ALBUM", value: "Album One" });
-            }}>ADD_SONG_TO_ALBUM</button>
+            }}>    <img className="" src="images/music-logo.png" height="20" width="20"></img></button>
             <button className="duplicate-btn" onClick={() => dispatch({
                 type: "UPDATE_FILTERED_ALBUMS", value2: AddProp
             })}>UPDATE_ALBUM</button>
