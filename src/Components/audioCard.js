@@ -15,31 +15,38 @@ const AudioCard = (props) => {
 
 
     const addAudio = () => {
-        fetch("http://localhost:8080/albums/add-audio", { // cez tento fetch pridavame audio toto je post request
-            method: "POST",
-            body: JSON.stringify({
-                "albumid": pickedAlbum.id,
-                "audioid": oneSong.id
-            }),
+        if (pickedAlbum == null) {
+            console.log("you have to choose some album")
+        }
+        else {
+            fetch("http://localhost:8080/albums/add-audio", { // cez tento fetch pridavame audio toto je post request
+                method: "POST",
+                body: JSON.stringify({
+                    "albumid": pickedAlbum.id,
+                    "audioid": oneSong.id
+                }),
 
 
 
-        })
+            })
 
 
 
 
 
 
-            //   const request = (album) => setData([...data, album]);
-            .then((response) => response.json())
-            .then((audio) => dispatch({ type: "ADD_SONG_TO_ALBUM", value: audio }))
-            .catch((error) => console.error('Error adding audio:', error));
 
 
+                //   const request = (album) => setData([...data, album]);
+                .then((response) => response.json())
+                .then((audio) => dispatch({ type: "ADD_SONG_TO_ALBUM", value: audio }))
+                .catch((error) => console.error('Error adding audio:', error));
 
+
+        }
 
     };
+
 
 
     return (
