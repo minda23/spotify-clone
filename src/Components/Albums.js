@@ -102,8 +102,8 @@ const Albums = (props) => {
             response.json()).then((data) => dispatch({ type: "UPDATE_ALBUMS", value: data })) // dispatch musi tam pridať informaciu lebo priamo spušta akciu
         //Tuna musime o tieto data žiadať lebo použivame vlastne cyklus Map,  čiže to dáva správnu logiku.
 
+    }, []);// useEffect ked tam nedáme ten prazdny list tak sa to bude spuštať donekonečna.
 
-    },);
     const createAlbum = () => {
         fetch("http://localhost:8080/albums", { // cez tento fetch dostavame novy album
             method: "POST",
