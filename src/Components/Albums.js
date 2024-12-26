@@ -55,14 +55,14 @@ const myReducer = (state, dispatchedAction) => {
             }
         case "ADD_SONG_TO_ALBUM":
             const newAudio1 = dispatchedAction.value1;
-            const OneAlbumList = state.albums.filter((album) => album.title === dispatchedAction.value ? true : false)
+            const OneAlbumList = state.albums.filter((album) => album.id === dispatchedAction.value ? true : false)
             const OneAlbum = OneAlbumList[0] // tuna pridavame ten fifiltrovany album do premmenej 
             // potom uložiť  newAudio1 do toho OneAlbum
             const One_Album_With_New_Audio = {
                 ...OneAlbum,    // vyberame všetky predošle hodnoty
                 audio: [...OneAlbum.audio, newAudio1]
             }
-            const albums1 = state.albums.map((album) => album.title === dispatchedAction.value ? One_Album_With_New_Audio : album)
+            const albums1 = state.albums.map((album) => album.id === dispatchedAction.value ? One_Album_With_New_Audio : album)
             return {
                 ...state,
                 albums: albums1

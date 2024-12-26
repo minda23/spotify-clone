@@ -47,7 +47,14 @@ const AddToAlbumModal = (props) => {
                 </div>
                 <div className="buttons">
                     <button onClick={() => dispatch({ type: "CLOSE_MODAL" })} className="CLOSE">CLOSE</button>
-                    <button onClick={() => addAudio()} className="ADD">ADD</button>
+                    <button onClick={() => {
+                        addAudio();
+                        dispatch({
+                            type: "ADD_SONG_TO_ALBUM",
+                            value: parseInt(pickedAlbumId),
+                            value1: state.modalSong
+                        })
+                    }} className="ADD">ADD</button>
                 </div>
 
                 <div className="select-box">
