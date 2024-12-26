@@ -12,6 +12,39 @@
     flex: 1;
 }
 
+
+.delete-button {
+    margin-left: -1rem;
+}
+
+.OPEN {
+    padding: 1rem;
+    border-radius: 1rem;
+    background-color: #1DB954;
+    color: black;
+    margin-right: 1rem;
+    margin-top: 0rem;
+    font-weight: bold;
+
+
+
+}
+
+.buttons {
+    display: flex;
+    /* Enables flexbox */
+    gap: 0.5rem;
+    align-items: center;
+    position: relative;
+    right: 2rem;
+}
+
+
+.buttons button {
+    position: relative;
+    right: -1rem;
+}
+
 .songs-list {
     color: black;
     height: auto;
@@ -24,21 +57,18 @@
     font-size: 1.1rem;
     text-align: left;
     box-sizing: border-box;
-    overflow-y: auto;
+
 }
 
 .album-title {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    /* Wrap content if needed */
     gap: 1rem;
-    /* Space between items */
+
 }
 
-.duplicate-btn {
-    margin-right: 2rem;
-}
+
 
 .album-title-wrapper {
     display: flex;
@@ -82,6 +112,13 @@
         gap: 2rem;
     }
 
+    .buttons {
+        right: 0;
+        /* Reset position for smaller screens */
+        justify-content: center;
+        /* Center align items */
+    }
+
     .list-songs {
         justify-content: center;
         width: 100%;
@@ -90,7 +127,7 @@
 
     .songs-list {
         width: 90%;
-        max-height: 25rem;
+        max-width: 19rem;
         padding: 1rem;
         margin-left: 4rem;
 
@@ -119,16 +156,12 @@
 
     }
 
-    .songs-list {
-        width: 95%;
-        padding: 1rem;
-        font-size: 1rem;
-        margin-left: 5rem;
 
-    }
+
+
 
     .album-title-wrapper {
-        max-width: 100%;
+        max-width: 60%;
         justify-content: center;
         flex-direction: column;
         align-items: center;
@@ -153,11 +186,43 @@
 @media (max-width: 380px) {
     .songs-list {
         width: 90%;
-        max-height: 25rem;
+        max-height: 78rem;
         padding: 1rem;
-        margin-left: 2rem;
+        margin-left: 1.6rem;
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
 
     }
+
+    .OPEN {
+        padding: 0.3rem;
+    }
+
+    .buttons {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        position: relative;
+        right: 2rem;
+
+    }
+
+    /* Individual button styles */
+    .buttons button {
+        margin-left: 0;
+        /* Reset margin for alignment */
+        display: flex;
+        align-items: center;
+        /* Center content inside the button */
+        justify-content: center;
+        /* Center content horizontally */
+        padding: 0.5rem 1rem;
+        /* Add padding for better spacing */
+    }
+
 
     .album-title-wrapper {
         flex-direction: column;
