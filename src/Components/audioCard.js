@@ -14,7 +14,7 @@ const AudioCard = (props) => {
 
         <div className='buttons' >
             <div>
-                <p>{oneSong.title}</p>
+                <p className='song-title'>{oneSong.title}</p>
             </div>
             <button className="delete-button" onClick={() => dispatch({ type: "REMOVE_AUDIO_FROM_ALBUMS", value: DeleteProp, })} ><img className="" src="images/delete.png" height="20" width="20"></img></button>
             <button className="duplicate-btn" onClick={() => dispatch({

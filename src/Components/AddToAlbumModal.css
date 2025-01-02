@@ -45,7 +45,7 @@
     background-color: #1DB954;
 }
 
-.buttons {
+.buttons1 {
     display: flex;
     gap: 1rem;
     position: sticky;
@@ -90,8 +90,27 @@
         position: relative;
         right: 2rem;
         padding: 1rem;
+        margin-left: 14rem;
 
     }
+
+    .modal_title {
+        color: white;
+        margin-bottom: 1rem;
+        /* Center the title */
+    }
+
+
+    .buttons1 {
+        margin-left: 2.9rem;
+
+    }
+
+    .select-box {
+        position: absolute;
+        left: 2.9rem;
+    }
+
 
 
 
@@ -99,18 +118,17 @@
         margin-right: 0;
     }
 
-    .modal_title {
-        transform: translateX(0);
-        margin-top: -20rem;
-    }
+
 }
 
 @media (max-width: 420px) {
     .modal-box {
-        position: relative;
-        right: 2rem;
-        padding: 2rem;
+        padding: 1rem;
 
+    }
+
+    .buttons1 {
+        margin-left: 1rem;
     }
 
 
@@ -119,8 +137,5 @@
         margin-right: 0;
     }
 
-    .modal_title {
-        transform: translateX(10rem);
-        margin-top: -20rem;
-    }
+
 }

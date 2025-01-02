@@ -1,6 +1,24 @@
 .album-title-wrapper {
     display: flex;
     flex-wrap: wrap;
-    flex-direction: column;
+    flex-direction: row;
+
+}
+
+.Album-artist-image img {
+    width: 10rem;
+}
+
+.text-album {
+    margin-bottom: 2rem;
+}
+
+
+
+@media (max-width: 420px) {
+    .Album-artist-image img {
+        width: 5rem;
+    }
+
 
 }

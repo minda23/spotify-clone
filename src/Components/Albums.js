@@ -9,19 +9,13 @@ import AddToAlbumModal from "./AddToAlbumModal";
 
 // ked mam nejaky bug najdôležitejšie je pochopiť prečo je ten error na ktorom bode,tlačidku alebo na čom to vyskoči a kde
 // presne sa nachádza a tak skôr vedieť ako to vyriešiť.
-
-
 const initialState = {
 
     albums: [],
     selectedAlbum: null,
     isModalOpen: false, // toto je boolean
     modalSong: null, // ak incializujeme zakladny state kde je datova typ objekt davame null(prazdny objekt)
-
 }
-
-
-
 const myReducer = (state, dispatchedAction) => {
     switch (dispatchedAction.type) {
         case "UPDATE_ALBUMS":
@@ -88,8 +82,6 @@ const myReducer = (state, dispatchedAction) => {
                 isModalOpen: false,
                 modalSong: null
             }
-
-
     }
 }
 const Albums = (props) => {
@@ -128,7 +120,7 @@ const Albums = (props) => {
                             <AlbumCard AlbumProp={album} dispatch={dispatch} Image_path="images/images.jfif" image_height="50" image_width="50" />
                         </div>
                     ))}
-                    <div>
+                    <div className="add-album">
                         <input type="text" onChange={event => setName(event.target.value)}></input>
                         <button className="btn" type="text" onClick={createAlbum}>ADD</button>
                     </div>

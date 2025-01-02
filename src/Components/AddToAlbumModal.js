@@ -45,7 +45,7 @@ const AddToAlbumModal = (props) => {
                 <div>
                     <p>{state.modalSong.title}</p>
                 </div>
-                <div className="buttons">
+                <div className="buttons1">
                     <button onClick={() => dispatch({ type: "CLOSE_MODAL" })} className="CLOSE">CLOSE</button>
                     <button onClick={() => {
                         addAudio();
