@@ -1,38 +1,61 @@
 "use client";
 import React from "react";
 import "./AddToAlbumModal.css"
+import Button from '@mui/material/Button';
+import Snackbar from '@mui/material/Snackbar';
 import { useState, useEffect, useReducer, useContext } from "react";
 import DataContext from "./DataContext"
 
 const AddToAlbumModal = (props) => {
+    const [error, setError] = useState("")
     const { oneSong } = props;
-
     const [state, dispatch] = useContext(DataContext)
-
     const [pickedAlbumId, setPickedAlbumId] = useState(null);
+    const [open, setOpen] = useState(false);
 
+    const handleClick = () => {
+        setOpen(true);
+    };
 
-
+    const handleClose = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+        setOpen(false);
+    };
     const addAudio = () => {
-
-
-
         if (pickedAlbumId == null) {
-            console.log("you have to choose some album")
         }
 
+
         else {
+
             fetch("http://localhost:8080/albums/add-audio", { // cez tento fetch pridavame audio toto je post request
                 method: "POST",
                 body: JSON.stringify({
                     "albumid": parseInt(pickedAlbumId),
                     "audioid": state.modalSong.id
                 }),
-            }).then((response) => response.json())
-                .then((audio) => dispatch({ type: "OPEN_MODALS", value: audio }))
-                .catch((error) => console.error('Error adding audio:', error));
+            }).then((response) => {
+                if (response.ok === false) {
+                    return Promise.reject(response)
+                }
+                return response.json()
+            })
+                .then((audio) => {
+                    dispatch({ type: "OPEN_MODALS", value: audio })
+                })
+                .catch((error) => {
+                    error.text().then(resolvedError => setError(resolvedError))
+                    handleClick()
+                })
+
+
+
         }
     }
+
+
 
     return (
         <div className="modal-overlay">
@@ -55,6 +78,15 @@ const AddToAlbumModal = (props) => {
                             value1: state.modalSong
                         })
                     }} className="ADD">ADD</button>
+                    <Snackbar
+                        open={open}
+                        autoHideDuration={6000}
+                        onClose={handleClose}
+                        message={error}
+                        color="error"
+
+
+                    />
                 </div>
 
                 <div className="select-box">
