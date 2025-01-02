@@ -1,5 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
+import Button from '@mui/material/Button';
 import './AlbumCard.css';
 
 const AlbumCard = (props) => {
@@ -16,8 +17,8 @@ const AlbumCard = (props) => {
                     <div className="playlist-songs">{!!AlbumProp.audio && AlbumProp.audio.length}</div>
                 </div>
             </div>
-            <div>
-                <button className="select-button" onClick={() => dispatch({ type: "SELECT_ALBUM", value: AlbumProp })}>Select</button>
+            <div style={{ display: "flex", justifyContent: "center" }}>
+                <Button variant="contained" onClick={() => dispatch({ type: "SELECT_ALBUM", value: AlbumProp })}>Select</Button>
             </div>
         </div>
     );
