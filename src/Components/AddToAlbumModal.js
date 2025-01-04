@@ -27,7 +27,7 @@ const AddToAlbumModal = (props) => {
         }
         else {
 
-            fetch("https://spotify-clone-1-30fn.onrender.com/albums/add-audio", { // cez tento fetch pridavame audio toto je post request
+            fetch("http://localhost:8080/albums/add-audio", { // cez tento fetch pridavame audio toto je post request
                 method: "POST",
                 body: JSON.stringify({
                     "albumid": parseInt(pickedAlbumId),
