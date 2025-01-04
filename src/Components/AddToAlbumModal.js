@@ -27,7 +27,7 @@ const AddToAlbumModal = (props) => {
         }
         else {
 
-            fetch("http://https://server-spotify.onrender.com/albums/add-audio", { // cez tento fetch pridavame audio toto je post request
+            fetch("https://server-spotify.onrender.com/albums/add-audio", { // cez tento fetch pridavame audio toto je post request
                 method: "POST",
                 body: JSON.stringify({
                     "albumid": parseInt(pickedAlbumId),
