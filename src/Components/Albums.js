@@ -115,7 +115,7 @@ const Albums = (props) => {
 
 
     useEffect(() => {
-        fetch("https://spotify-clone-server-i018.onrender.com/").then((response) => // dostavame list albumov ten prvy fetch
+        fetch("https://spotify-clone-1-30fn.onrender.com/").then((response) => // dostavame list albumov ten prvy fetch
             response.json()).then((data) => dispatch({ type: "UPDATE_ALBUMS", value: data })) // dispatch musi tam pridať informaciu lebo priamo spušta akciu
         //Tuna musime o tieto data žiadať lebo použivame vlastne cyklus Map,  čiže to dáva správnu logiku.
 
@@ -127,7 +127,7 @@ const Albums = (props) => {
             handleClick();
             return;
         }
-        fetch("https://spotify-clone-server-i018.onrender.com/", { // cez tento fetch dostavame novy album
+        fetch("https://spotify-clone-1-30fn.onrender.com/", { // cez tento fetch dostavame novy album
             method: "POST",
             body: JSON.stringify({
                 title: name,
