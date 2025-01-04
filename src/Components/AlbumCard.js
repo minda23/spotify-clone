@@ -17,7 +17,7 @@ const AlbumCard = (props) => {
                     <div className="playlist-songs">{!!AlbumProp.audio && AlbumProp.audio.length}</div>
                 </div>
             </div>
-            <div style={{ display: "flex", justifyContent: "center" }}>
+            <div style={{ display: "flex", justifyContent: "center", marginBottom: "1rem" }}>
                 <Button variant="contained" onClick={() => dispatch({ type: "SELECT_ALBUM", value: AlbumProp })}>Select</Button>
             </div>
         </div>

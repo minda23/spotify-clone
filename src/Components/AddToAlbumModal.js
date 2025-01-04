@@ -16,7 +16,6 @@ const AddToAlbumModal = (props) => {
     const handleClick = () => {
         setOpen(true);
     };
-
     const handleClose = (event, reason) => {
         if (reason === 'clickaway') {
             return;
@@ -26,11 +25,9 @@ const AddToAlbumModal = (props) => {
     const addAudio = () => {
         if (pickedAlbumId == null) {
         }
-
-
         else {
 
-            fetch("http://localhost:8080/albums/add-audio", { // cez tento fetch pridavame audio toto je post request
+            fetch("http://https://server-spotify.onrender.com/albums/add-audio", { // cez tento fetch pridavame audio toto je post request
                 method: "POST",
                 body: JSON.stringify({
                     "albumid": parseInt(pickedAlbumId),
@@ -49,18 +46,10 @@ const AddToAlbumModal = (props) => {
                     error.text().then(resolvedError => setError(resolvedError))
                     handleClick()
                 })
-
-
-
         }
     }
-
-
-
     return (
         <div className="modal-overlay">
-
-
             <div className="modal-box">
                 <div className="modal_title">
                     <h1>Select which album</h1>
@@ -84,11 +73,8 @@ const AddToAlbumModal = (props) => {
                         onClose={handleClose}
                         message={error}
                         color="error"
-
-
                     />
                 </div>
-
                 <div className="select-box">
                     <select
                         onChange={(e) => {

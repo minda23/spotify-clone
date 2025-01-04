@@ -35,7 +35,7 @@
     gap: 0.5rem;
     align-items: center;
     position: relative;
-    right: 2rem;
+    left: -1rem;
 }
 
 
@@ -106,17 +106,17 @@
 @media (max-width: 768px) {
     .parent {
         flex-direction: column;
-        /* Stack items vertically */
         align-items: center;
         gap: 2rem;
     }
 
     .buttons {
         right: 0;
-        /* Reset position for smaller screens */
         justify-content: center;
-        /* Center align items */
+        position: relative;
+        right: 2rem;
     }
+
 
     .list-songs {
         justify-content: center;

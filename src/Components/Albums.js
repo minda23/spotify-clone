@@ -6,6 +6,10 @@ import './Albums.css';
 import AudioList from "./audioList";
 import DataContext from "./DataContext"
 import AddToAlbumModal from "./AddToAlbumModal";
+import Dialog from '@mui/material/Dialog';
+import Button from '@mui/material/Button';
+import TextField from '@mui/material/TextField';
+import Snackbar from '@mui/material/Snackbar';
 
 // ked mam nejaky bug najdôležitejšie je pochopiť prečo je ten error na ktorom bode,tlačidku alebo na čom to vyskoči a kde
 // presne sa nachádza a tak skôr vedieť ako to vyriešiť.
@@ -85,30 +89,61 @@ const myReducer = (state, dispatchedAction) => {
     }
 }
 const Albums = (props) => {
-
     const [name, setName] = useState("");
+    const [open, setOpen] = useState(false);
+    const [openSnack, setOpensnack] = useState(false);
+    const [error, setError] = useState("")
     const [state, dispatch] = useReducer(myReducer, initialState);
+    const handleClickOpen = () => {
+        setOpen(true);
+    };
+    const handleClose = (value) => {
+        setOpen(false);
+    };
+    const handleClick = () => {
+        setOpensnack(true);
+    };
+    const handleCloseSnack = (reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+        setOpensnack(false);
+    };
+    const isAlbumDuplicate = (title) => {
+        return state.albums.some((album) => album.title === title);
+    };
+
 
     useEffect(() => {
-        fetch("http://localhost:8080/albums").then((response) => // dostavame list albumov ten prvy fetch
+        fetch("https://server-spotify.onrender.com").then((response) => // dostavame list albumov ten prvy fetch
             response.json()).then((data) => dispatch({ type: "UPDATE_ALBUMS", value: data })) // dispatch musi tam pridať informaciu lebo priamo spušta akciu
         //Tuna musime o tieto data žiadať lebo použivame vlastne cyklus Map,  čiže to dáva správnu logiku.
 
     }, []);// useEffect ked tam nedáme ten prazdny list tak sa to bude spuštať donekonečna.
 
     const createAlbum = () => {
-        fetch("http://localhost:8080/albums", { // cez tento fetch dostavame novy album
+        if (isAlbumDuplicate(name)) {
+            setError(`Album "${name}" already exists!`);
+            handleClick();
+            return;
+        }
+        fetch("https://server-spotify.onrender.com", { // cez tento fetch dostavame novy album
             method: "POST",
             body: JSON.stringify({
                 title: name,
                 artist: "Lucas",
             }),
+        }).then((response) => {
+            if (response.ok === false) {
+                return Promise.reject(response)
+            }
+            return response.json()
         })
-            .then((response) => response.json())
             .then((album) => dispatch({ type: "ADD_ALBUM", value: album }))
-            .catch((error) => console.error('Error creating album:', error));
+            .catch((error) => {
+                error.text().then(resolvedError => setError(resolvedError))
+            });
     };
-
     return (
         <DataContext.Provider value={[state, dispatch]} >
             {state.isModalOpen === true ? <AddToAlbumModal /> : null}
@@ -120,9 +155,26 @@ const Albums = (props) => {
                             <AlbumCard AlbumProp={album} dispatch={dispatch} Image_path="images/images.jfif" image_height="50" image_width="50" />
                         </div>
                     ))}
-                    <div className="add-album">
-                        <input type="text" onChange={event => setName(event.target.value)}></input>
-                        <button className="btn" type="text" onClick={createAlbum}>ADD</button>
+                    <div>
+                        <Button style={{ marginTop: "1rem" }} variant="outlined" onClick={handleClickOpen}>
+                            createAlbum
+                        </Button>
+                    </div>
+                    <div>
+                        <Dialog onClose={handleClose} open={open} sameAlbum={openSnack}>
+                            <TextField style={{ backgroundColor: "#1DB954", }} id="filled-basic" label="Filled" variant="filled" type="text" onChange={event => setName(event.target.value)} />
+                            <button style={{ padding: "1.2rem" }} className="btn" type="text" onClick={createAlbum}>ADD</button>
+                        </Dialog>
+                        <Snackbar
+                            openSnack={openSnack}
+                            autoHideDuration={6000}
+                            onClose={handleCloseSnack}
+                            message="Is the same name of album"
+                            color="error"
+                        />
+                    </div>
+                    <div>
+
                     </div>
                     <div className="songs">
                         <AudioList state={state} dispatch={dispatch} />
@@ -130,7 +182,7 @@ const Albums = (props) => {
                     </div>
                 </div>
             </div>
-        </DataContext.Provider>
+        </DataContext.Provider >
     );
 
 };
