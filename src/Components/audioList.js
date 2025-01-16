@@ -1,9 +1,6 @@
 "use client";
 import { useState, useEffect, useReducer, useContext } from "react";
-
 import AudioCard from './audioCard';
-import AddToAlbumModal from './AddToAlbumModal';
-import DataContext from "./DataContext"
 import "./audioList.css"
 
 const audioList = (props) => {

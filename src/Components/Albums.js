@@ -1,8 +1,8 @@
 "use client";
 import React from "react";
 import { useState, useEffect, useReducer, } from "react";
-import AlbumCard from "./AlbumCard";
 import './Albums.css';
+import AlbumCard from "./AlbumCard";
 import AudioList from "./audioList";
 import DataContext from "./DataContext"
 import AddToAlbumModal from "./AddToAlbumModal";
@@ -10,6 +10,8 @@ import Dialog from '@mui/material/Dialog';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Snackbar from '@mui/material/Snackbar';
+import Stack from '@mui/material/Stack';
+import { Erica_One } from "next/font/google";
 
 // ked mam nejaky bug najdôležitejšie je pochopiť prečo je ten error na ktorom bode,tlačidku alebo na čom to vyskoči a kde
 // presne sa nachádza a tak skôr vedieť ako to vyriešiť.
@@ -94,6 +96,7 @@ const Albums = (props) => {
     const [openSnack, setOpensnack] = useState(false);
     const [error, setError] = useState("")
     const [state, dispatch] = useReducer(myReducer, initialState);
+
     const handleClickOpen = () => {
         setOpen(true);
     };
@@ -109,11 +112,16 @@ const Albums = (props) => {
         }
         setOpensnack(false);
     };
-    const isAlbumDuplicate = (title) => {
-        return state.albums.some((album) => album.title === title);
+    const isAlbumDuplicate = () => {
+        const firstAlbum = state.albums.find((album) => album.title === name ? true : false); // find fukncia vracia prvy album objekt
+
+        if (firstAlbum === undefined) {
+            return false;
+        }
+        else {
+            return true; // else sa použiva stale na negaciu, je to naša posledna podmienka ak sa nesplni nič bud if alebo else IF
+        }
     };
-
-
     useEffect(() => {
         fetch("http://localhost:8080/albums").then((response) => // dostavame list albumov ten prvy fetch
             response.json()).then((data) => dispatch({ type: "UPDATE_ALBUMS", value: data })) // dispatch musi tam pridať informaciu lebo priamo spušta akciu
@@ -122,10 +130,10 @@ const Albums = (props) => {
     }, []);// useEffect ked tam nedáme ten prazdny list tak sa to bude spuštať donekonečna.
 
     const createAlbum = () => {
-        if (isAlbumDuplicate(name)) {
+        if (isAlbumDuplicate() === true) {
             setError(`Album "${name}" already exists!`);
             handleClick();
-            return;
+            return; // poouživa sa nielen na vracanie hodnôt ale aj na predčasne ukončenie funckie.
         }
         fetch("http://localhost:8080/albums", { // cez tento fetch dostavame novy album
             method: "POST",
@@ -161,15 +169,20 @@ const Albums = (props) => {
                         </Button>
                     </div>
                     <div>
-                        <Dialog onClose={handleClose} open={open} sameAlbum={openSnack}>
-                            <TextField style={{ backgroundColor: "#1DB954", }} id="filled-basic" label="Filled" variant="filled" type="text" onChange={event => setName(event.target.value)} />
-                            <button style={{ padding: "1.2rem" }} className="btn" type="text" onClick={createAlbum}>ADD</button>
+
+                        <Dialog style={{ padding: "1rem", color: "green" }} onClose={handleClose} open={open} sameAlbum={openSnack}>
+                            <Stack spacing={2}>
+                                <TextField style={{ backgroundColor: "#117558", }} id="filled-basic" label="Filled" variant="filled" type="text" onChange={event => setName(event.target.value)} />
+                                <button style={{ padding: "1.2rem", backgroundColor: "grey", }} className="btn" type="text" onClick={createAlbum}>ADD</button>
+                                <button style={{ padding: "1.2rem", backgroundColor: "#1DB954" }} className="btn" type="text" onClick={handleClose}>close</button>
+                            </Stack>
                         </Dialog>
+
                         <Snackbar
-                            openSnack={openSnack}
+                            open={openSnack}
                             autoHideDuration={6000}
                             onClose={handleCloseSnack}
-                            message="Is the same name of album"
+                            message={error}
                             color="error"
                         />
                     </div>
