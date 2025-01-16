@@ -10,8 +10,11 @@ import Dialog from '@mui/material/Dialog';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Snackbar from '@mui/material/Snackbar';
-import Stack from '@mui/material/Stack';
-import { Erica_One } from "next/font/google";
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
+
 
 // ked mam nejaky bug najdôležitejšie je pochopiť prečo je ten error na ktorom bode,tlačidku alebo na čom to vyskoči a kde
 // presne sa nachádza a tak skôr vedieť ako to vyriešiť.
@@ -170,12 +173,16 @@ const Albums = (props) => {
                     </div>
                     <div>
 
-                        <Dialog style={{ padding: "1rem", color: "green" }} onClose={handleClose} open={open} sameAlbum={openSnack}>
-                            <Stack spacing={2}>
-                                <TextField style={{ backgroundColor: "#117558", }} id="filled-basic" label="Filled" variant="filled" type="text" onChange={event => setName(event.target.value)} />
-                                <button style={{ padding: "1.2rem", backgroundColor: "grey", }} className="btn" type="text" onClick={createAlbum}>ADD</button>
-                                <button style={{ padding: "1.2rem", backgroundColor: "#1DB954" }} className="btn" type="text" onClick={handleClose}>close</button>
-                            </Stack>
+                        <Dialog style={{}} onClose={handleClose} open={open} sameAlbum={openSnack}>
+                            <DialogTitle>Create Album</DialogTitle>
+                            <DialogContent>
+                                <TextField style={{}} id="filled-basic" label="Filled" variant="filled" type="text" onChange={event => setName(event.target.value)} />
+                            </DialogContent>
+
+                            <DialogActions>
+                                <Button className="btn" type="text" onClick={handleClose}>close</Button>
+                                <Button variant="contained" className="btn" type="text" onClick={createAlbum}>add</Button>
+                            </DialogActions>
                         </Dialog>
 
                         <Snackbar
