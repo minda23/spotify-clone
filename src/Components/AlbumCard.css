@@ -11,9 +11,12 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    justify-items: center;
     flex-wrap: wrap;
 
 }
+
+
 
 .select-button {
     margin-left: 1rem;
@@ -32,6 +35,15 @@
     text-align: left;
 }
 
+.Information {
+    margin-top: -1rem;
+}
+
+.Image {
+    margin-top: -1rem;
+
+}
+
 @media (max-width: 768px) {
     .wrapper {
         max-width: 42%;
@@ -42,6 +54,31 @@
 
     .songs {
         position: relative;
+    }
+
+}
+
+
+
+@media (max-width: 480px) {
+    .wrapper {
+        max-width: 42%;
+        padding-bottom: 6rem;
+        margin-left: 1rem;
+
+    }
+
+    .songs {
+        position: relative;
+    }
+
+    .Information {
+        margin-top: 1rem;
+    }
+
+    .Image {
+        margin-top: -2rem;
+
     }
 
 }

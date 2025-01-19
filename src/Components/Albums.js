@@ -6,6 +6,7 @@ import AlbumCard from "./AlbumCard";
 import AudioList from "./audioList";
 import DataContext from "./DataContext"
 import AddToAlbumModal from "./AddToAlbumModal";
+import SearchBar from "./searchBar";
 import Dialog from '@mui/material/Dialog';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
@@ -21,6 +22,7 @@ import DialogTitle from '@mui/material/DialogTitle';
 const initialState = {
 
     albums: [],
+    audios: [],
     selectedAlbum: null,
     isModalOpen: false, // toto je boolean
     modalSong: null, // ak incializujeme zakladny state kde je datova typ objekt davame null(prazdny objekt)
@@ -39,6 +41,8 @@ const myReducer = (state, dispatchedAction) => {
             }
         case "SELECT_ALBUM":
             console.log("ahoj")
+            console.log(state.selectedAlbum)
+
             return {
                 ...state,
                 selectedAlbum: dispatchedAction.value
@@ -91,7 +95,18 @@ const myReducer = (state, dispatchedAction) => {
                 isModalOpen: false,
                 modalSong: null
             }
+
+        case "GET_SONGS":
+
+            return {
+                ...state,
+
+                audios: dispatchedAction.value
+
+
+            }
     }
+
 }
 const Albums = (props) => {
     const [name, setName] = useState("");
@@ -132,6 +147,13 @@ const Albums = (props) => {
 
     }, []);// useEffect ked tam nedáme ten prazdny list tak sa to bude spuštať donekonečna.
 
+    useEffect(() => {
+        fetch("http://localhost:8080/audios").then((response) => // dostavame list albumov ten prvy fetch
+            response.json()).then((data) => dispatch({ type: "GET_SONGS", value: data })) // dispatch musi tam pridať informaciu lebo priamo spušta akciu
+        //Tuna musime o tieto data žiadať lebo použivame vlastne cyklus Map,  čiže to dáva správnu logiku.
+
+    }, []);
+
     const createAlbum = () => {
         if (isAlbumDuplicate() === true) {
             setError(`Album "${name}" already exists!`);
@@ -156,10 +178,15 @@ const Albums = (props) => {
             });
     };
     return (
+
         <DataContext.Provider value={[state, dispatch]} >
+
             {state.isModalOpen === true ? <AddToAlbumModal /> : null}
 
+            <SearchBar />
+
             <div className="wrapper-main">
+
                 <div className="Albums-wrapper"> {/* čiže toto je koren komponentu album.js nemože to byť hned javascript */}
                     {!!state.albums && state.albums.map((album) => (
                         <div className="albums">
