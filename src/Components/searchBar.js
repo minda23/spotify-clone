@@ -88,16 +88,10 @@ const searchBar = () => {
                         id="free-solo-demo"
                         freeSolo
                         options={state.audios.map((option) => option.title)}
-                        renderInput={(params) => (
+                        renderInput={(params) => ( // ked sa zavola render input funkcia tak sa pridá parameter
                             <TextField
                                 {...params}
                                 label="Search for audio"
-                                onClick={() => {
-                                    dispatch({
-                                        type: "GET_SONGS",
-                                        value: state.audios
-                                    });
-                                }}
                             />
                         )}
                     />

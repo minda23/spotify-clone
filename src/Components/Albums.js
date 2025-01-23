@@ -151,6 +151,7 @@ const Albums = (props) => {
         fetch("http://localhost:8080/audios").then((response) => // dostavame list albumov ten prvy fetch
             response.json()).then((data) => dispatch({ type: "GET_SONGS", value: data })) // dispatch musi tam pridať informaciu lebo priamo spušta akciu
         //Tuna musime o tieto data žiadať lebo použivame vlastne cyklus Map,  čiže to dáva správnu logiku.
+        // data su pesničky z backendu
 
     }, []);
 
