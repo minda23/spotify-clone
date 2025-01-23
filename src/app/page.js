@@ -4,6 +4,7 @@ import Image from 'next/image';
 import Albums from '../Components/Albums.js';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
+
 export default function Home() {
 
 
@@ -28,7 +29,6 @@ export default function Home() {
 
       <ThemeProvider theme={theme}>
         <Albums />
-
       </ThemeProvider>
     </div>
   );

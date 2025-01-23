@@ -110,7 +110,7 @@ const myReducer = (state, dispatchedAction) => {
 }
 const Albums = (props) => {
     const [name, setName] = useState("");
-    const [open, setOpen] = useState(false);
+    const [open, setOpen] = useState(false); // setOpen je funkcia ktora može zmeniť hodnotu open
     const [openSnack, setOpensnack] = useState(false);
     const [error, setError] = useState("")
     const [state, dispatch] = useReducer(myReducer, initialState);

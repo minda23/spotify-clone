@@ -1,6 +1,7 @@
 "use client";
 import './audioCard.css';
 import { useState, useEffect, useReducer, useContext } from "react";
+import Button from '@mui/material/Button';
 import DataContext from "./DataContext"
 
 
@@ -24,7 +25,7 @@ const AudioCard = (props) => {
 
 
 
-            <button onClick={() => dispatch({ type: "OPEN_MODALS", value2: oneSong })} className="OPEN">OPEN</button>
+            <Button variant="contained" className="btn" onClick={() => dispatch({ type: "OPEN_MODALS", value2: oneSong })} className="OPEN">OPEN</Button>
 
 
         </div >

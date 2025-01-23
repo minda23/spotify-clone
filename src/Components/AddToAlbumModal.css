@@ -31,6 +31,10 @@
 
 }
 
+.modal_items {
+    margin-left: 1rem
+}
+
 
 
 .select-box {
@@ -38,7 +42,7 @@
     padding: 2rem;
     color: #7EC5BE;
     position: absolute;
-    left: 8.5rem;
+    left: 5rem;
 }
 
 .select-box option {
@@ -49,7 +53,7 @@
     display: flex;
     gap: 1rem;
     position: sticky;
-    margin-left: 1.5rem;
+    margin-left: ;
 
 
 
@@ -61,22 +65,7 @@
 
 
 
-.CLOSE {
-    padding: 1rem;
-    border-radius: 1rem;
-    background-color: #1DB954;
-    color: black;
-    font-weight: bold;
-}
 
-.ADD {
-    padding: 1rem;
-    border-radius: 1rem;
-    background-color: #1DB954;
-    color: black;
-    margin-right: 19rem;
-    font-weight: bold;
-}
 
 .modal_title {
     color: white;

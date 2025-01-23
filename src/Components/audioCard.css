@@ -17,17 +17,11 @@
     margin-left: -1rem;
 }
 
-.OPEN {
-    padding: 1rem;
-    border-radius: 1rem;
-    background-color: #1DB954;
-    color: black;
-    margin-top: 0rem;
-    font-weight: bold;
 
 
 
-}
+
+
 
 .buttons {
     display: flex;
