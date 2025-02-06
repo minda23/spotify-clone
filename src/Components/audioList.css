@@ -7,10 +7,12 @@
 
 .Album-artist-image img {
     width: 10rem;
+
 }
 
 .text-album {
     margin-bottom: 2rem;
+    margin-left: 3rem;
 }
 
 
@@ -18,6 +20,18 @@
 @media (max-width: 420px) {
     .Album-artist-image img {
         width: 5rem;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .text-album {
+        margin-bottom: 2rem;
+        margin-left: 0rem;
+    }
+
+    .album-title-wrapper {
+        max-width: 10.9rem;
     }
 
 

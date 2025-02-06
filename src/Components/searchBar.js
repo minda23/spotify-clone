@@ -15,6 +15,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 const searchBar = () => {
 
     const [state, dispatch] = useContext(DataContext)
+    const [value, setValue] = useState("");
     const theme = createTheme({
         components: {
             MuiAutocomplete: {
@@ -23,6 +24,9 @@ const searchBar = () => {
                         backgroundColor: '#1DB954',
                         width: '15rem',
 
+                    },
+                    '@media (max-width:600px)': {
+                        marginleft: "-3rem"
                     },
                 }
             },
@@ -38,7 +42,9 @@ const searchBar = () => {
                         flexWrap: "wrap",
                         gap: "1rem",
 
-                    }
+                    },
+
+
                 },
 
             },
@@ -48,23 +54,38 @@ const searchBar = () => {
                         backgroundColor: "	#FFFFFF",
                         borderRadius: "2rem",
                         fontSize: "3rem",
-
-
-
-
-
-
                     },
                 },
+            },
+
+            MuiAvatar: {
+                styleOverrides: {
+                    root: {
+                        position: "relative",
+                        top: "0.5rem"
+                    }
+                }
+            },
+
+            MuiTextField: {
+                styleOverrides: {
+                    root: {
+                        fontSize: "1rem"
+                    }
+                }
             }
+
+
+
+
         }
 
     });
 
-
-
     return (
+
         <div>
+
             <ThemeProvider theme={theme}>
                 <Stack spacing={2} direction="row">
                     <img
@@ -81,27 +102,48 @@ const searchBar = () => {
                         className="spotify-logo"
                     />
                     <SvgIcon style={{ marginTop: "0.2rem", display: "flex", flexWrap: "wrap" }}>
-                        <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
+
                     </SvgIcon>
                     <Autocomplete
-                        style={{ display: "flex", flexWrap: "wrap" }}
+                        style={{ display: "flex", flexWrap: "wrap", fontSize: "0.2rem" }}
                         id="free-solo-demo"
-                        freeSolo
                         options={state.audios.map((option) => option.title)}
                         renderInput={(params) => ( // ked sa zavola render input funkcia tak sa pridá parameter
                             <TextField
                                 {...params}
+
                                 label="Search for audio"
                             />
+
+
+
                         )}
+                        onChange={(event, newValue) => {
+                            const filteredAudios = state.audios.filter((audio) => audio.title === newValue)
+                            if (filteredAudios.length === 0) {
+                                return;
+
+                            }
+
+                            else {
+                                dispatch({ type: "SELECT_SONG", value: filteredAudios[0] })
+                                setValue(newValue);
+                            }
+
+
+
+
+
+                        }}
                     />
-                    <Button variant="contained" className="btn" type="text">Explore premium</Button>
+
+                    < Button variant="contained" className="btn" type="text" > Explore premium</Button>
                     <Button className="btn" type="text">Install app</Button>
                     <Avatar sx={{ bgcolor: deepOrange[500] }}>N</Avatar>
                 </Stack>
             </ThemeProvider>
 
-        </div>
+        </div >
     );
 }
 

@@ -54,6 +54,7 @@
 
     .songs {
         position: relative;
+        left: 2rem;
     }
 
 }
@@ -68,9 +69,12 @@
 
     }
 
+
     .songs {
         position: relative;
+        left: 0rem;
     }
+
 
     .Information {
         margin-top: 1rem;

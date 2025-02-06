@@ -25,7 +25,7 @@ const AudioCard = (props) => {
 
 
 
-            <Button variant="contained" className="btn" onClick={() => dispatch({ type: "OPEN_MODALS", value2: oneSong })} className="OPEN">OPEN</Button>
+            <Button variant="contained" onClick={() => dispatch({ type: "OPEN_MODALS", value2: oneSong })} className="OPEN">OPEN</Button>
 
 
         </div >
