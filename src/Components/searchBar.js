@@ -25,9 +25,7 @@ const searchBar = () => {
                         width: '15rem',
 
                     },
-                    '@media (max-width:600px)': {
-                        marginleft: "-3rem"
-                    },
+
                 }
             },
             MuiStack: {

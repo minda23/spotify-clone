@@ -314,15 +314,14 @@ const Albums = (props) => {
                             color="error"
                         />
                     </div>
-                    <div></div>
-                    <div className="songs">
-                        <AudioList
-                            title={audioListTitle}
-                            artist={audioListArtist}
-                            songs={audioListAudios}
-                            subtitle={chooseName}
-                        />
-                    </div>
+                </div>
+                <div className="Audio-wrapper">
+                    <AudioList
+                        title={audioListTitle}
+                        artist={audioListArtist}
+                        songs={audioListAudios}
+                        subtitle={chooseName}
+                    />
                 </div>
             </div>
         </DataContext.Provider>

@@ -38,24 +38,7 @@ const sortingData = () => {
                         position: "absolute",
                         left: "45rem",
                         top: "0rem",
-                        '@media (max-width:1200px)': {
-                            width: "7rem",
-                            top: "0.5rem",
-                            left: "38rem",
 
-                        },
-                        '@media (max-width:900px)': {
-                            width: "7rem",
-                            top: "0.5rem",
-                            left: "25rem",
-                        },
-
-
-                        '@media (max-width:600px)': {
-                            width: "7rem",
-                            top: "0.5rem",
-                            left: "3rem",
-                        },
 
                     }
 
@@ -68,12 +51,7 @@ const sortingData = () => {
                         justifyContent: "center",
                         alignItems: "center",
                         maxHeight: "1rem",
-                        '@media (max-width:600px)': {
-                            flexDirection: "column",
-                        },
-                        '@media (min-width:600px) and (max-width:960px)': {
-                            flexDirection: "row",
-                        }
+
                     }
                 },
             }

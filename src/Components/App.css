@@ -1,21 +1,31 @@
+.wrapper-main {
+    display: flex;
+    margin: 2rem;
+
+}
+
+
+
+
 .Albums-wrapper {
     padding: 1.8rem;
     background-color: #121212;
-    margin: 3rem 5rem;
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
-    position: relative;
     border-radius: 1rem;
+    flex: 1;
 }
 
-.songs {
+
+
+.Audio-wrapper {
     display: flex;
-    align-self: center;
-    position: absolute;
-    max-width: 45rem;
-    width: 100%;
+    flex-direction: column;
+    flex: 3;
+
 }
+
 
 .delete-button1 {
     padding: 1.5rem;
@@ -30,8 +40,6 @@
 
 .albums {
     background-color: #1E1E1E;
-    max-width: 35rem;
-    margin-left: 3rem;
 }
 
 .add-album {
@@ -68,75 +76,4 @@
 .btn1 {
     background-color: red;
     font-weight: bold;
-}
-
-/* General default styles */
-body {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-/* Responsive styles */
-@media (max-width: 1080px) {
-    .Albums-wrapper {
-        margin: 2rem 1rem;
-        flex-wrap: wrap;
-        gap: 1rem;
-    }
-
-
-
-    .songs {
-        position: relative;
-        margin-top: 5rem;
-
-
-    }
-
-    .albums {
-        margin-left: 0rem;
-        margin-top: 2rem;
-        max-width: 100%;
-    }
-}
-
-@media (max-width: 1450px) {
-    .add-album {
-        padding: 1rem;
-        background-color: #212121;
-        display: flex;
-        flex-direction: column;
-        max-width: 20%;
-        margin-top: 2rem;
-        justify-content: space-between;
-        /* Distribute space evenly between elements */
-    }
-
-}
-
-@media (max-width: 768px) {
-    .Albums-wrapper {
-
-        flex-direction: column;
-    }
-
-    .wraper-main {
-        margin-left: 1rem;
-        margin-right: -1rem;
-    }
-
-    .songs {
-        margin-left: -3.1rem;
-    }
-
-
-
-    .add-album {
-        flex-direction: column;
-
-        max-width: 15rem;
-
-    }
-
 }
