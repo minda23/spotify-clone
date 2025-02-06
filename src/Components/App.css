@@ -1,6 +1,7 @@
 .wrapper-main {
     display: flex;
     margin: 2rem;
+    gap: 1rem;
 
 }
 

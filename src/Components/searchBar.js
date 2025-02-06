@@ -13,6 +13,13 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 
 const searchBar = () => {
+    function HomeIcon(props) {
+        return (
+            <SvgIcon {...props}>
+                <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
+            </SvgIcon>
+        );
+    }
 
     const [state, dispatch] = useContext(DataContext)
     const [value, setValue] = useState("");
@@ -80,6 +87,7 @@ const searchBar = () => {
 
     });
 
+
     return (
 
         <div>
@@ -99,9 +107,7 @@ const searchBar = () => {
                         width="45"
                         className="spotify-logo"
                     />
-                    <SvgIcon style={{ marginTop: "0.2rem", display: "flex", flexWrap: "wrap" }}>
-
-                    </SvgIcon>
+                    <HomeIcon fontSize="large" />
                     <Autocomplete
                         style={{ display: "flex", flexWrap: "wrap", fontSize: "0.2rem" }}
                         id="free-solo-demo"
