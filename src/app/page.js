@@ -1,7 +1,7 @@
 "use client"
 import { useState, useEffect } from "react";
 import Image from 'next/image';
-import Albums from '../Components/Albums.js';
+import App from '../Components/App.js';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 
@@ -28,7 +28,7 @@ export default function Home() {
 
 
       <ThemeProvider theme={theme}>
-        <Albums />
+        <App />
       </ThemeProvider>
     </div>
   );

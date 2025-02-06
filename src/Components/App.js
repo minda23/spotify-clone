@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import { useState, useEffect, useReducer } from "react";
-import "./Albums.css";
+import "./App.css";
 import AlbumCard from "./AlbumCard";
 import AudioList from "./audioList";
 import DataContext from "./DataContext";
@@ -264,7 +264,6 @@ const Albums = (props) => {
                                     image_height="50"
                                     image_width="50"
                                 />
-
                             </div>
                         ))}
                     <div>
