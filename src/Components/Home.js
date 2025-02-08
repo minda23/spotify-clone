@@ -23,7 +23,7 @@ const Home = () => {
 
         <>
             <div className="Home-data">
-
+                <h1 className="text-album">Made for you</h1>
                 {state.albums.map((album) => (
                     <div className="Album" key={album.id}>
                         <img className="Image-album" src="images/camilla.jpeg" width="172" height="172"></img>
@@ -39,7 +39,7 @@ const Home = () => {
 
 
                 </div>
-
+                <h1 className="text-audio">Episodes for you</h1>
                 {state.audios.map((audio) => (
                     <div className="Audio" key={audio.id}>
                         <img className="Image-audio" src="images/camilla.jpeg" width="172" height="172"></img>

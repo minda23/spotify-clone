@@ -2,6 +2,7 @@
     display: grid;
     grid-template-columns: repeat(3, 0.5fr);
     margin: 2rem;
+    ;
 }
 
 
@@ -9,9 +10,16 @@
     color: #ffffff;
     margin: 1rem;
     padding: 2rem;
+    margin-top: 5rem;
 
 
 
+}
+
+.text-album {
+    color: #1ED760;
+    text-align: center;
+    grid-column: 4 / 1;
 }
 
 .Album:hover {
@@ -39,7 +47,13 @@
 .Audio {
     color: white;
     padding: 2rem;
+}
 
+.text-audio {
+
+    color: white;
+    text-align: center;
+    grid-column: 4 / 1;
 
 }
 
