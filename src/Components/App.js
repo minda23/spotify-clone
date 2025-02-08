@@ -7,7 +7,9 @@ import AudioList from "./audioList";
 import DataContext from "./DataContext";
 import AddToAlbumModal from "./AddToAlbumModal";
 import SearchBar from "./searchBar";
+import SvgIcon from '@mui/material/SvgIcon';
 import SortingData from "./sortingData";
+import Home from "./Home";
 import Dialog from "@mui/material/Dialog";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
@@ -16,6 +18,7 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
+import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 // ked mam nejaky bug najdôležitejšie je pochopiť prečo je ten error na ktorom bode,tlačidku alebo na čom to vyskoči a kde
 // presne sa nachádza a tak skôr vedieť ako to vyriešiť.
@@ -133,13 +136,58 @@ const myReducer = (state, dispatchedAction) => {
     }
 };
 const Albums = (props) => {
+    function HomeIcon(props) {
+        return (
+            <SvgIcon {...props}>
+                <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
+            </SvgIcon>
+        );
+    }
+
+    const theme = createTheme({
+        components: {
+
+            MuiSvgIcon: {
+                styleOverrides: {
+                    root: {
+                        backgroundColor: "	#FFFFFF",
+                        borderRadius: "2rem",
+                        fontSize: "3rem",
+
+                    },
+                },
+
+            },
+
+        },
+
+
+
+
+
+
+
+
+
+    });
+
     const [name, setName] = useState("");
     const [open, setOpen] = useState(false); // setOpen je funkcia ktora može zmeniť hodnotu open
     const [openSnack, setOpensnack] = useState(false);
-    const [show, setShow] = useState(false);
+    const [home, setHome] = useState(false);
     const [error, setError] = useState("");
     const [state, dispatch] = useReducer(myReducer, initialState);
 
+    const handleClickHome = () => {
+        {
+            state.selectedAlbum === null && state.selectedAudio === null && home ? <Home /> : <div className="Audio-wrapper"><AudioList
+                title={audioListTitle}
+                artist={audioListArtist}
+                songs={audioListAudios}
+
+            /></div>
+        }
+    }
     const handleClickOpen = () => {
         setOpen(true);
     };
@@ -191,6 +239,8 @@ const Albums = (props) => {
     }, []);
 
     const createAlbum = () => {
+
+
         console.log("Hello");
 
         if (isAlbumDuplicate() === true) {
@@ -226,26 +276,39 @@ const Albums = (props) => {
         audioListTitle = state.selectedAlbum.title;
         audioListArtist = state.selectedAlbum.artist;
         audioListAudios = state.selectedAlbum.album;
+
     }
 
     if (state.selectedAudio !== null) {
         audioListTitle = state.selectedAudio.title;
         audioListArtist = state.selectedAudio.artist;
         audioListAudios = state.selectedAudio.audio;
+
+
     }
 
-    const chooseName = () => {
-        if (album_data()) {
-            return "Album";
-        } else {
-            return "Audio";
-        }
-    };
+
+
+
+
+
+
+
+
+
+
+
 
     return (
         <DataContext.Provider value={[state, dispatch]}>
+
             {state.isModalOpen === true ? <AddToAlbumModal /> : null}
-            <SearchBar />
+
+            <SearchBar /><ThemeProvider theme={theme}>
+
+                <HomeIcon onClick={handleClickHome} fontSize="large" />
+
+            </ThemeProvider>
 
 
             <div className="wrapper-main">
@@ -315,14 +378,27 @@ const Albums = (props) => {
                         />
                     </div>
                 </div>
-                <div className="Audio-wrapper">
-                    <AudioList
-                        title={audioListTitle}
-                        artist={audioListArtist}
-                        songs={audioListAudios}
-                        subtitle={chooseName}
-                    />
-                </div>
+                {state.selectedAlbum === null && state.selectedAudio === null ? <Home /> : <div className="Audio-wrapper"><AudioList
+                    title={audioListTitle}
+                    artist={audioListArtist}
+                    songs={audioListAudios}
+
+                /></div>}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
             </div>
         </DataContext.Provider>
     );

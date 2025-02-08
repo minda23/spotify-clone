@@ -107,7 +107,7 @@ const searchBar = () => {
                         width="45"
                         className="spotify-logo"
                     />
-                    <HomeIcon fontSize="large" />
+
                     <Autocomplete
                         style={{ display: "flex", flexWrap: "wrap", fontSize: "0.2rem" }}
                         id="free-solo-demo"

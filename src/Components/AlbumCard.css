@@ -1,7 +1,6 @@
 .wrapper {
     margin-top: 5rem;
     height: 3.5rem;
-    background-color: #1B1B1B;
     margin: 0.5rem;
     color: white;
     padding: 0.5rem;
@@ -14,6 +13,12 @@
     flex-wrap: wrap;
 
 }
+
+.wrapper:hover {
+    background-color: #2A2A2A;
+    transition: 0.3s;
+}
+
 
 
 

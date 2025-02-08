@@ -53,7 +53,7 @@ const AddToAlbumModal = (props) => {
             <div className="modal-box">
                 <div className="modal_items">
                     <div className="modal_title">
-                        <h1>Order Confirmed</h1>
+                        <h1>Modal title</h1>
                     </div>
                     <div>
                         <p style={{ color: "white" }}>{state.modalSong.title}</p>

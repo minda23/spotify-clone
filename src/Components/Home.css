@@ -1,0 +1,80 @@
+.Home-data {
+    display: grid;
+    grid-template-columns: repeat(3, 0.5fr);
+    margin: 2rem;
+}
+
+
+.Album {
+    color: #ffffff;
+    margin: 1rem;
+    padding: 2rem;
+
+
+
+}
+
+.Album:hover {
+    background-color: #2A2A2A;
+    transition: 0.3s;
+    border-radius: 2rem;
+}
+
+.Image-album {
+    border-radius: 10rem;
+}
+
+.Album-title {
+    display: flex;
+    align-items: center;
+    font-size: 1rem;
+
+}
+
+.Album-artist {
+    font-size: 1rem;
+
+}
+
+.Audio {
+    color: white;
+    padding: 2rem;
+
+
+}
+
+.Audio:hover {
+    background-color: #2A2A2A;
+    transition: 0.3s;
+    border-radius: 2rem;
+}
+
+
+
+.Image-audio {
+    border-radius: 2rem;
+}
+
+
+
+
+
+
+.Audio-title {
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+
+}
+
+.Audio-artist {
+    font-size: 1rem;
+
+}
+
+@media only screen and (max-width: 1000px) {
+    .Home-data {
+        display: flex;
+        flex-direction: column;
+    }
+}
