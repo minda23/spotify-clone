@@ -286,7 +286,6 @@ const Albums = (props) => {
                                 <AlbumCard
                                     AlbumProp={album}
                                     dispatch={dispatch}
-                                    Image_path="images/images.jfif"
                                     image_height="50"
                                     image_width="50"
                                 />

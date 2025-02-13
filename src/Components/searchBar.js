@@ -103,7 +103,7 @@ const searchBar = () => {
                             display: "flex",
                             flexWrap: "1rem"
                         }}
-                        src="images/Spotify_logo.png"
+                        src="images/music-player.png"
                         height="45"
                         width="45"
                         className="spotify-logo"
