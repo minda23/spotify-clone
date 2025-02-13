@@ -13,15 +13,16 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 
 const searchBar = () => {
+    const [state, dispatch] = useContext(DataContext)
     function HomeIcon(props) {
         return (
-            <SvgIcon {...props}>
+            <SvgIcon onClick={() => dispatch({ type: "CLEAR_ALBUM_AND_SONG" })} {...props}>
                 <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
             </SvgIcon>
         );
     }
+    // dvojite a trojite rovna sa použiva v podmienke == maju slabšiu silu ako === 
 
-    const [state, dispatch] = useContext(DataContext)
     const [value, setValue] = useState("");
     const theme = createTheme({
         components: {
@@ -126,10 +127,7 @@ const searchBar = () => {
                             const filteredAudios = state.audios.filter((audio) => audio.title === newValue)
                             if (filteredAudios.length === 0) {
                                 return;
-
-                            }
-
-                            else {
+                            } else {
                                 dispatch({ type: "SELECT_SONG", value: filteredAudios[0] })
                                 setValue(newValue);
                             }
@@ -140,6 +138,7 @@ const searchBar = () => {
 
                         }}
                     />
+                    <HomeIcon fontSize="large" />
 
                     < Button variant="contained" className="btn" type="text" > Explore premium</Button>
                     <Button className="btn" type="text">Install app</Button>

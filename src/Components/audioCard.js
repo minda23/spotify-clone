@@ -8,7 +8,7 @@ import DataContext from "./DataContext"
 
 
 const AudioCard = (props) => {
-    const { oneSong, AddProp, } = props;
+    const { oneSong, } = props;
     // tuna si definujeme čo je to za prop či je to trojuholnik
     const [state, dispatch] = useContext(DataContext)
     return (
@@ -18,9 +18,11 @@ const AudioCard = (props) => {
                 <p className='song-title'>{oneSong.title}</p>
             </div>
             <button className="delete-button" onClick={() => dispatch({ type: "REMOVE_AUDIO_FROM_ALBUMS", value: DeleteProp, })} ><img className="" src="images/delete.png" height="20" width="20"></img></button>
-            <button className="duplicate-btn" onClick={() => dispatch({
-                type: "ADD_AUDIO_TO_SELECTED_ALBUM", value: AddProp,
-            })}><img className="" src="images/duplicate.png" height="20" width="20"></img></button>
+            <button className="duplicate-btn" onClick={() => {
+                return dispatch({
+                    type: "ADD_AUDIO_TO_SELECTED_ALBUM", value: oneSong
+                });
+            }}><img className="" src="images/duplicate.png" height="20" width="20"></img></button>
 
 
 

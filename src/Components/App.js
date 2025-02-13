@@ -43,7 +43,6 @@ const myReducer = (state, dispatchedAction) => {
                 albums: [...state.albums, dispatchedAction.value],
             };
         case "SELECT_ALBUM":
-            console.log("ahoj");
             console.log(state.selectedAlbum);
             //const removeSelectedAudio = state.albums.filter((item) => item != state.selectedAudio)
 
@@ -56,14 +55,11 @@ const myReducer = (state, dispatchedAction) => {
 
             };
         case "REMOVE_AUDIO_FROM_ALBUMS":
-            console.log(dispatchedAction.value.id) /
-                console.log(state.selectedAlbum.title);
             return {
                 ...state,
             };
         case "ADD_AUDIO_TO_SELECTED_ALBUM":
             const newAudio = dispatchedAction.value;
-            console.log(...state.albums);
             return {
                 ...state,
                 selectedAlbum: {
@@ -113,7 +109,6 @@ const myReducer = (state, dispatchedAction) => {
         case "GET_SONGS":
             return {
                 ...state,
-
                 audios: dispatchedAction.value,
             };
 
@@ -132,62 +127,30 @@ const myReducer = (state, dispatchedAction) => {
 
             }
 
+        case "CLEAR_ALBUM_AND_SONG":
+            return {
+                ...state,
+                selectedAlbum: null,
+                selectedAudio: null
+            }
+
 
     }
 };
 const Albums = (props) => {
-    function HomeIcon(props) {
-        return (
-            <SvgIcon {...props}>
-                <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
-            </SvgIcon>
-        );
-    }
-
-    const theme = createTheme({
-        components: {
-
-            MuiSvgIcon: {
-                styleOverrides: {
-                    root: {
-                        backgroundColor: "	#FFFFFF",
-                        borderRadius: "2rem",
-                        fontSize: "3rem",
-
-                    },
-                },
-
-            },
-
-        },
 
 
 
 
-
-
-
-
-
-    });
 
     const [name, setName] = useState("");
     const [open, setOpen] = useState(false); // setOpen je funkcia ktora može zmeniť hodnotu open
     const [openSnack, setOpensnack] = useState(false);
-    const [home, setHome] = useState(false);
     const [error, setError] = useState("");
     const [state, dispatch] = useReducer(myReducer, initialState);
 
-    const handleClickHome = () => {
-        {
-            state.selectedAlbum === null && state.selectedAudio === null && home ? <Home /> : <div className="Audio-wrapper"><AudioList
-                title={audioListTitle}
-                artist={audioListArtist}
-                songs={audioListAudios}
 
-            /></div>
-        }
-    }
+
     const handleClickOpen = () => {
         setOpen(true);
     };
@@ -228,6 +191,18 @@ const Albums = (props) => {
 
     useEffect(() => {
         fetch("http://localhost:8080/audios")
+            .then(
+                (
+                    response // dostavame list albumov ten prvy fetch
+                ) => response.json()
+            )
+            .then((data) => dispatch({ type: "GET_SONGS", value: data })); // dispatch musi tam pridať informaciu lebo priamo spušta akciu
+        //Tuna musime o tieto data žiadať lebo použivame vlastne cyklus Map,  čiže to dáva správnu logiku.
+        // data su pesničky z backendu
+    }, []);
+
+    useEffect(() => {
+        fetch("http://localhost:8080/albums/images/kandačovci.jpeg")
             .then(
                 (
                     response // dostavame list albumov ten prvy fetch
@@ -286,29 +261,17 @@ const Albums = (props) => {
 
 
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
     return (
         <DataContext.Provider value={[state, dispatch]}>
 
             {state.isModalOpen === true ? <AddToAlbumModal /> : null}
 
-            <SearchBar /><ThemeProvider theme={theme}>
+            <SearchBar />
 
-                <HomeIcon onClick={handleClickHome} fontSize="large" />
 
-            </ThemeProvider>
+
+
+
 
 
             <div className="wrapper-main">
@@ -383,6 +346,7 @@ const Albums = (props) => {
                     artist={audioListArtist}
                     songs={audioListAudios}
 
+
                 /></div>}
 
 
@@ -400,7 +364,7 @@ const Albums = (props) => {
 
 
             </div>
-        </DataContext.Provider>
+        </DataContext.Provider >
     );
 };
 

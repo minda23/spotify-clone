@@ -43,6 +43,7 @@ const Home = () => {
                 {state.audios.map((audio) => (
                     <div className="Audio" key={audio.id}>
                         <img className="Image-audio" src="images/camilla.jpeg" width="172" height="172"></img>
+
                         <h1 className="Audio-title">{audio.title}</h1>
                         <h1 className="Audio-artist">{audio.artist}</h1>
 

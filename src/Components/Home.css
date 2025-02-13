@@ -1,16 +1,20 @@
 .Home-data {
     display: grid;
     grid-template-columns: repeat(3, 0.5fr);
-    margin: 2rem;
-    ;
+
+
+
 }
 
 
 .Album {
     color: #ffffff;
     margin: 1rem;
-    padding: 2rem;
+    padding: 1rem;
     margin-top: 5rem;
+
+
+
 
 
 
@@ -22,10 +26,13 @@
     grid-column: 4 / 1;
 }
 
-.Album:hover {
+.Album:hover::after {
     background-color: #2A2A2A;
     transition: 0.3s;
     border-radius: 2rem;
+    content: '';
+
+
 }
 
 .Image-album {

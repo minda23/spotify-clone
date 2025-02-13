@@ -4,7 +4,7 @@ import AudioCard from './audioCard';
 import "./audioList.css"
 
 const audioList = (props) => {
-    const { title, artist, songs, subtitle } = props;
+    const { title, artist, songs, subtitle, } = props;
 
     return (
         <>
@@ -32,7 +32,7 @@ const audioList = (props) => {
 
                         <div>
                             <div>
-                                <AudioCard oneSong={oneAudio} />
+                                <AudioCard oneSong={oneAudio} oneSong1={oneAudio} />
                             </div>
 
                         </div>
