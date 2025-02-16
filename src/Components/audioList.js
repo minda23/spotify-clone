@@ -4,13 +4,13 @@ import AudioCard from './audioCard';
 import "./audioList.css"
 
 const audioList = (props) => {
-    const { title, artist, songs, subtitle, } = props;
+    const { title, artist, songs, subtitle, url } = props;
 
     return (
         <>
             <div className="album-title-wrapper">
                 <div className="Album-artist-image">
-                    <img className="" src="images/beyonce.jfif"></img>
+                    <img className="" src={url}></img>
                 </div>
                 <div className="text-album">
                     <p style={{
@@ -33,6 +33,7 @@ const audioList = (props) => {
                         <div>
                             <div>
                                 <AudioCard oneSong={oneAudio} oneSong1={oneAudio} />
+
                             </div>
 
                         </div>

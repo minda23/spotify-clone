@@ -12,7 +12,7 @@ export default function Home() {
 
     palette: {
       primary: {
-        main: '#1DB954',
+        main: '#6A0DAD',
 
       },
 

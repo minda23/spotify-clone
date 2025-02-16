@@ -9,7 +9,8 @@ import { useState, useContext } from "react";
 
 
 
-const Home = () => {
+const Home = (props) => {
+    const { url } = props;
     const [state, dispatch] = useContext(DataContext)
 
 
@@ -26,7 +27,7 @@ const Home = () => {
                 <h1 className="text-album">Made for you</h1>
                 {state.albums.map((album) => (
                     <div className="Album" key={album.id}>
-                        <img className="Image-album" src="images/camilla.jpeg" width="172" height="172"></img>
+                        <img className="Image-album" src={album.url} width="172" height="172"></img>
                         <h1 className="Album-artist">artist</h1>
                         <h1 className="Album-title">{album.title}</h1>
 

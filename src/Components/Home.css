@@ -26,11 +26,10 @@
     grid-column: 4 / 1;
 }
 
-.Album:hover::after {
+.Album:hover {
     background-color: #2A2A2A;
     transition: 0.3s;
     border-radius: 2rem;
-    content: '';
 
 
 }

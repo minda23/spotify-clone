@@ -28,8 +28,24 @@ const initialState = {
     selectedAlbum: null,
     selectedAudio: null,
     isModalOpen: false, // toto je boolean
+    isPremiumModalOpen: false,
     modalSong: null, // ak incializujeme zakladny state kde je datova typ objekt davame null(prazdny objekt)
 };
+const theme = createTheme({
+    components: {
+        MuiTextField: {
+            styleOverrides: {
+                root: {
+                    paddingTop: "1rem",
+
+
+
+                }
+            }
+        }
+    }
+});
+
 const myReducer = (state, dispatchedAction) => {
     switch (dispatchedAction.type) {
         case "UPDATE_ALBUMS":
@@ -134,6 +150,19 @@ const myReducer = (state, dispatchedAction) => {
                 selectedAudio: null
             }
 
+        case "OPEN_MODAL_PREMIUM":
+            return {
+                ...state,
+                isPremiumModalOpen: true,
+            };
+
+        case "CLOSE_MODAL_PREMIUM":
+            return {
+                ...state,
+                isPremiumModalOpen: false,
+                modalSong: null,
+            };
+
 
     }
 };
@@ -144,6 +173,7 @@ const Albums = (props) => {
 
 
     const [name, setName] = useState("");
+    const [image, setImage] = useState();
     const [open, setOpen] = useState(false); // setOpen je funkcia ktora može zmeniť hodnotu open
     const [openSnack, setOpensnack] = useState(false);
     const [error, setError] = useState("");
@@ -201,17 +231,6 @@ const Albums = (props) => {
         // data su pesničky z backendu
     }, []);
 
-    useEffect(() => {
-        fetch("http://localhost:8080/albums/images/kandačovci.jpeg")
-            .then(
-                (
-                    response // dostavame list albumov ten prvy fetch
-                ) => response.json()
-            )
-            .then((data) => dispatch({ type: "GET_SONGS", value: data })); // dispatch musi tam pridať informaciu lebo priamo spušta akciu
-        //Tuna musime o tieto data žiadať lebo použivame vlastne cyklus Map,  čiže to dáva správnu logiku.
-        // data su pesničky z backendu
-    }, []);
 
     const createAlbum = () => {
 
@@ -223,13 +242,18 @@ const Albums = (props) => {
             handleClick();
             return; // poouživa sa nielen na vracanie hodnôt ale aj na predčasne ukončenie funckie.
         }
-        fetch("http://localhost:8080/albums", {
+
+        const formData = new FormData();
+        formData.append('title', name);
+        formData.append('artist', "Lucas");
+        formData.append('image', image);
+        formData.append('fileName', image.name);
+
+
+        fetch("http://localhost:8080/albums-v2", {
             // cez tento fetch dostavame novy album
             method: "POST",
-            body: JSON.stringify({
-                title: name,
-                artist: "Lucas",
-            }),
+            body: formData
         })
             .then((response) => {
                 if (response.ok === false) {
@@ -246,11 +270,13 @@ const Albums = (props) => {
     let audioListTitle = "";
     let audioListArtist = "";
     let audioListAudios = null;
+    let audioListImage = "";
 
     if (state.selectedAlbum !== null) {
         audioListTitle = state.selectedAlbum.title;
         audioListArtist = state.selectedAlbum.artist;
         audioListAudios = state.selectedAlbum.album;
+        audioListImage = state.selectedAlbum.url;
 
     }
 
@@ -262,108 +288,121 @@ const Albums = (props) => {
 
     }
     return (
-        <DataContext.Provider value={[state, dispatch]}>
+        <ThemeProvider theme={theme}>
+            <DataContext.Provider value={[state, dispatch]}>
 
-            {state.isModalOpen === true ? <AddToAlbumModal /> : null}
-
-            <SearchBar />
-
+                {state.isModalOpen === true ? <AddToAlbumModal /> : null}
 
 
 
+                <SearchBar />
 
 
 
-            <div className="wrapper-main">
 
-                <div className="Albums-wrapper">
-                    {" "}
-                    <SortingData />
-                    {/* čiže toto je koren komponentu album.js nemože to byť hned javascript */}
-                    {!!state.albums &&
-                        state.albums.map((album) => (
-                            <div className="albums">
-                                <AlbumCard
-                                    AlbumProp={album}
-                                    dispatch={dispatch}
-                                    image_height="50"
-                                    image_width="50"
-                                />
-                            </div>
-                        ))}
-                    <div>
-                        <Button
-                            style={{ marginTop: "1rem" }}
-                            variant="outlined"
-                            onClick={handleClickOpen}>
-                            createAlbum
-                        </Button>
+
+
+
+                <div className="wrapper-main">
+
+                    <div className="Albums-wrapper">
+                        {" "}
+                        <SortingData />
+                        {/* čiže toto je koren komponentu album.js nemože to byť hned javascript */}
+                        {!!state.albums &&
+                            state.albums.map((album) => (
+                                <div className="albums">
+                                    <AlbumCard
+                                        AlbumProp={album}
+                                        dispatch={dispatch}
+                                        image_height="50"
+                                        image_width="50"
+                                    />
+                                </div>
+                            ))}
+                        <div>
+                            <Button
+                                style={{ marginTop: "1rem" }}
+                                variant="outlined"
+                                onClick={handleClickOpen}>
+                                createAlbum
+                            </Button>
+                        </div>
+                        <div>
+                            <Dialog
+                                style={{}}
+                                onClose={handleClose}
+                                open={open}
+                                sameAlbum={openSnack}>
+                                <DialogTitle>Create Album</DialogTitle>
+                                <DialogContent>
+                                    <TextField
+                                        id="filled-basic"
+                                        label="Album Name"
+                                        variant="filled"
+                                        type="text"
+                                        onChange={(event) => setName(event.target.value)}
+                                    />
+                                    <TextField
+                                        id="filled-basic"
+                                        label="Album Image"
+                                        variant="filled"
+                                        type="file"
+                                        onChange={(event) => setImage(event.target.files[0])}
+                                    />
+                                </DialogContent>
+
+                                <DialogActions>
+                                    <Button className="btn" type="text" onClick={handleClose}>
+                                        close
+                                    </Button>
+                                    <Button
+                                        variant="contained"
+                                        className="btn"
+                                        type="text"
+                                        onClick={createAlbum}>
+                                        add
+                                    </Button>
+
+                                </DialogActions>
+                            </Dialog>
+
+                            <Snackbar
+                                open={openSnack}
+                                autoHideDuration={6000}
+                                onClose={handleCloseSnack}
+                                message={error}
+                                color="error"
+                            />
+                        </div>
                     </div>
-                    <div>
-                        <Dialog
-                            style={{}}
-                            onClose={handleClose}
-                            open={open}
-                            sameAlbum={openSnack}>
-                            <DialogTitle>Create Album</DialogTitle>
-                            <DialogContent>
-                                <TextField
-                                    style={{}}
-                                    id="filled-basic"
-                                    label="Filled"
-                                    variant="filled"
-                                    type="text"
-                                    onChange={(event) => setName(event.target.value)}
-                                />
-                            </DialogContent>
+                    {state.selectedAlbum === null && state.selectedAudio === null ? <Home /> : <div className="Audio-wrapper"><AudioList
+                        title={audioListTitle}
+                        artist={audioListArtist}
+                        songs={audioListAudios}
+                        url={audioListImage}
 
-                            <DialogActions>
-                                <Button className="btn" type="text" onClick={handleClose}>
-                                    close
-                                </Button>
-                                <Button
-                                    variant="contained"
-                                    className="btn"
-                                    type="text"
-                                    onClick={createAlbum}>
-                                    add
-                                </Button>
-                            </DialogActions>
-                        </Dialog>
 
-                        <Snackbar
-                            open={openSnack}
-                            autoHideDuration={6000}
-                            onClose={handleCloseSnack}
-                            message={error}
-                            color="error"
-                        />
-                    </div>
+
+                    /></div>}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                 </div>
-                {state.selectedAlbum === null && state.selectedAudio === null ? <Home /> : <div className="Audio-wrapper"><AudioList
-                    title={audioListTitle}
-                    artist={audioListArtist}
-                    songs={audioListAudios}
-
-
-                /></div>}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-            </div>
-        </DataContext.Provider >
+            </DataContext.Provider >
+        </ThemeProvider>
     );
 };
 
