@@ -109,7 +109,6 @@ const searchBar = () => {
                     root: {
                         marginTop: '1rem',
                         color: 'white'
-
                     }
                 }
             }
@@ -134,9 +133,9 @@ const searchBar = () => {
                             display: "flex",
                             flexWrap: "1rem"
                         }}
-                        src="images/spotify-logo.png"
-                        height="65"
-                        width="65"
+                        src="images/video-library.png"
+                        height="45"
+                        width="45"
                         className="spotify-logo"
                     />
                     <Autocomplete
@@ -171,19 +170,19 @@ const searchBar = () => {
                     aria-describedby="modal-modal-description"
                 >
                     <Box sx={style}>
-                        <Typography marginLeft="2rem" id="modal-modal-title" variant="h6" component="h2">
+                        <Typography id="modal-modal-title" variant="h6" component="h2">
                             <img
                                 style={{
                                     position: "absolute",
                                     top: "1.7rem",
                                     left: "1.2rem"
                                 }}
-                                src="images/spotify-logo.png"
+                                src="images/video-library.png"
                                 height="45"
                                 width="45"
                                 className="spotify-logo"
                             />
-                            Premium
+                            <span style={{ marginLeft: "2.5rem" }}>Premium</span>
                         </Typography>
                         <Typography color="#FFD2D7" id="modal-modal-description" variant="h4" sx={{ mt: 2 }}>
                             Individual
@@ -192,10 +191,11 @@ const searchBar = () => {
                         <Typography id="modal-modal-description" variant="p" sx={{ mt: 2 }}>
                             €6.49 / month
                         </Typography>
-                        <Typography id="modal-modal-description" variant="ul" sx={{ mt: 2 }}>
-                            1 Premium account
-                            Cancel anytime
-                        </Typography>
+                        <ul >
+                            <li style={{ color: "white", fontSize: "1rem", listStyleType: "circle" }}>1 Premium account</li>
+                            <li style={{ color: "white", fontSize: "1rem", listStyleType: "circle" }}>Cancel anytime</li>
+                        </ul>
+
                         <Button padding='1.5rem' variant="contained">Get premium Individual</Button>
                         <Typography borderBottom="1px solid" width="fit-content" id="modal-modal-description" variant="p" sx={{
                             mt: 2,
@@ -208,7 +208,7 @@ const searchBar = () => {
                     </Box>
                 </Modal>
             </ThemeProvider>
-        </div>
+        </div >
     );
 }
 
