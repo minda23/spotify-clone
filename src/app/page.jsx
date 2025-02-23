@@ -1,7 +1,7 @@
 "use client"
 import { useState, useEffect } from "react";
 import Image from 'next/image';
-import App from '../Components/App.js';
+import App from '../Components/App.jsx';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 

@@ -11,20 +11,26 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 
 
+export const sortingData1 = () => {
+    const [state, dispatch] = useContext(DataContext)
+    sortAlphapetical1 = [...state.albums]
+    sortAlphapetical1.sort((a, b) => a.title.localeCompare(b.title))
 
+    recentlyAdded1 = [...state.albums]
+    recentlyAdded1.reverse()
+
+}
 
 
 
 const sortingData = () => {
-    const [state, dispatch] = useContext(DataContext)
 
+    const [state, dispatch] = useContext(DataContext)
     let sortAlphapetical1 = [...state.albums]
     sortAlphapetical1.sort((a, b) => a.title.localeCompare(b.title))
 
     let recentlyAdded1 = [...state.albums]
     recentlyAdded1.reverse()
-
-
 
 
 
