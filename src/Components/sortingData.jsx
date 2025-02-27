@@ -11,28 +11,38 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 
 
-export const sortingData1 = () => {
-    const [state, dispatch] = useContext(DataContext)
-    sortAlphapetical1 = [...state.albums]
-    sortAlphapetical1.sort((a, b) => a.title.localeCompare(b.title))
+export const sortAlbumsAlphabetically = (albums) => {
+    // parametre su ako správy, // state je správa ktora je na riadku 27 a
+    //  posielame tej funkcii správu a ta funkcia ten state správu potom može použivať ako chce
+    let AlbumsSortedAlphabetically = [...albums]
+    AlbumsSortedAlphabetically.sort((a, b) => a.title.localeCompare(b.title))
+    // let AlbumsSortedReversed = [...state.albums]
+    //AlbumsSortedReversed.reverse()
 
-    recentlyAdded1 = [...state.albums]
-    recentlyAdded1.reverse()
+    return AlbumsSortedAlphabetically
+
+
 
 }
 
+export const sortAlbumsReverse = (albums) => { // parameter sa posiela do funkcie najprv 
+    // a return nam vracia tam kde to volame , čiže na riadku 41
+
+    let AlbumsSortedReversed = [...albums]
+    AlbumsSortedReversed.reverse()
+
+    return AlbumsSortedReversed
+}
 
 
-const sortingData = () => {
-
-    const [state, dispatch] = useContext(DataContext)
-    let sortAlphapetical1 = [...state.albums]
-    sortAlphapetical1.sort((a, b) => a.title.localeCompare(b.title))
-
-    let recentlyAdded1 = [...state.albums]
-    recentlyAdded1.reverse()
-
-
+const sortingData = () => { // stale ked sa refreshne komponent tak sa vola len kod vo vnutri komponentu
+    const [state, dispatch] = useContext(DataContext);
+    const AlbumSorting = sortAlbumsAlphabetically(state.albums);// cely kod 
+    // sortAlbumAlphabeticaly sa spusti až ked sa zavola funkcia() keby som to return vymazal tak aj ked zavolame funkciu tak 
+    // vysledok by bol undefined.
+    const AlbumReversed = sortAlbumsReverse(state.albums);
+    // dávame ho sem a nie mimo lebo chceme aby sa spuštal viackrat a nie len raz 
+    // ked ho dame mimo koponent tak to nebude fungovať ako chceme.
 
     const theme = createTheme({
         components: {
@@ -75,8 +85,8 @@ const sortingData = () => {
                         label="Age"
 
                     >
-                        <MenuItem onClick={() => dispatch({ type: "SORT_DATA", value: sortAlphapetical1 })} >Alphabetical</MenuItem>
-                        <MenuItem onClick={() => dispatch({ type: "SORT_DATA", value: recentlyAdded1 })} >Recently Added</MenuItem>
+                        <MenuItem onClick={() => dispatch({ type: "SORT_DATA", value: AlbumSorting })} >Alphabetical</MenuItem>
+                        <MenuItem onClick={() => dispatch({ type: "SORT_DATA", value: AlbumReversed })} >Recently Added</MenuItem>
 
                     </Select>
                 </FormControl>

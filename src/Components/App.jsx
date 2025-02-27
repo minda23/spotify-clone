@@ -41,8 +41,19 @@ export const isAlbumDuplicate = (state, name) => {
         return false;
     } else {
         return true; // else sa použiva stale na negaciu, je to naša posledna podmienka ak sa nesplni nič bud if alebo else IF
-    }
+    } // return sa može vnimať ako správa ktore posielame naspať na to
+    // miesto kde sa zavolala tá funkcia.
 };
+
+
+export const AddSongToAlbum = () => {
+
+}
+
+
+
+
+
 const theme = createTheme({
     components: {
         MuiTextField: {
@@ -113,6 +124,8 @@ const myReducer = (state, dispatchedAction) => {
                 ...state,
                 albums: albums1,
             };
+
+
         case "UPDATE_FILTERED_ALBUMS":
             return {
                 ...state,
