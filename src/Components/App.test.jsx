@@ -1,4 +1,5 @@
 import { isAlbumDuplicate } from "./App";
+import { AddSongToAlbum } from "./App";
 import { expect, test } from 'vitest'
 
 
@@ -28,5 +29,10 @@ test("isAlbumDuplicate", () => {
 
 test("isAlbumDuplicate", () => {
     const Result = isAlbumDuplicate(state1, "ektor")
+    expect(Result).toEqual(false)
+})
+
+test("AddSongToAlbum", () => {
+    const Result = AddSongToAlbum(albums, "nedlžim ti nič")
     expect(Result).toEqual(false)
 })

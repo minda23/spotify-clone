@@ -46,13 +46,27 @@ export const isAlbumDuplicate = (state, name) => {
 };
 
 
-export const AddSongToAlbum = () => {
+export const AddSongToAlbum = (albums, dispatchedAction) => {
+    const newAudio1 = dispatchedAction.value1;
+    const OneAlbumList = albums.filter((album) =>
+        album.id === dispatchedAction.value ? true : false
+    );
+    const OneAlbum = OneAlbumList[0]; // tuna pridavame ten fifiltrovany album do premmenej
+    // potom uložiť  newAudio1 do toho OneAlbum
+    const One_Album_With_New_Audio = {
+        ...OneAlbum, // vyberame všetky predošle hodnoty
+        audio: [...OneAlbum.audio, newAudio1],
+    };
+
+    const albums1 = state.albums.map((album) =>
+        album.id === dispatchedAction.value ? One_Album_With_New_Audio : album
+    );
+
+
+    return albums1
+
 
 }
-
-
-
-
 
 const theme = createTheme({
     components: {
@@ -60,9 +74,6 @@ const theme = createTheme({
             styleOverrides: {
                 root: {
                     paddingTop: "1rem",
-
-
-
                 }
             }
         }
@@ -107,23 +118,13 @@ const myReducer = (state, dispatchedAction) => {
                 },
             };
         case "ADD_SONG_TO_ALBUM":
-            const newAudio1 = dispatchedAction.value1;
-            const OneAlbumList = state.albums.filter((album) =>
-                album.id === dispatchedAction.value ? true : false
-            );
-            const OneAlbum = OneAlbumList[0]; // tuna pridavame ten fifiltrovany album do premmenej
-            // potom uložiť  newAudio1 do toho OneAlbum
-            const One_Album_With_New_Audio = {
-                ...OneAlbum, // vyberame všetky predošle hodnoty
-                audio: [...OneAlbum.audio, newAudio1],
-            };
-            const albums1 = state.albums.map((album) =>
-                album.id === dispatchedAction.value ? One_Album_With_New_Audio : album
-            );
+
             return {
                 ...state,
-                albums: albums1,
-            };
+                albums: AddSongToAlbum(state.albums1, state.albums),
+
+
+            }
 
 
         case "UPDATE_FILTERED_ALBUMS":
