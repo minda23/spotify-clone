@@ -21,6 +21,35 @@ const state1 = {
 }
 
 
+const state2 = {
+    albums: [
+
+
+        {
+            "title": "OneAlbum",
+            "id": 0
+        },
+        {
+            "title": "SecondAlbum",
+            "id": 1
+        },
+        {
+            "title": "ThirdAlbum",
+            "id": 2
+        },
+        {
+            "title": "FourtAlbum",
+            "id": 3
+
+        },
+
+
+
+
+    ]
+}
+
+
 test("isAlbumDuplicate", () => {
     const Result = isAlbumDuplicate(state1, "metallica")
     expect(Result).toEqual(true)// my vlastne skušame alebo očakavame že ten result ma v sebe true hodnotu.
@@ -33,6 +62,11 @@ test("isAlbumDuplicate", () => {
 })
 
 test("AddSongToAlbum", () => {
-    const Result = AddSongToAlbum(albums, "nedlžim ti nič")
-    expect(Result).toEqual(false)
+    const Result = AddSongToAlbum(state2, 0)
+    expect(Result).toEqual(true)
+})
+
+test("AddSongToAlbum", () => {
+    const Result = AddSongToAlbum(state2, 0)
+    expect(Result).toEqual("OneAlbuWithNewAudio")
 })

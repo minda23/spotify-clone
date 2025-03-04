@@ -121,8 +121,7 @@ const myReducer = (state, dispatchedAction) => {
 
             return {
                 ...state,
-                albums: AddSongToAlbum(state.albums1, state.albums),
-
+                albums: AddSongToAlbum(state.albums1, state.albums)
 
             }
 
