@@ -47,26 +47,34 @@ export const isAlbumDuplicate = (state, name) => {
 
 
 export const AddSongToAlbum = (albums, dispatchedAction) => {
+    // možne vysledky : true or false
     const newAudio1 = dispatchedAction.value1;
     const OneAlbumList = albums.filter((album) =>
         album.id === dispatchedAction.value ? true : false
     );
-    const OneAlbum = OneAlbumList[0]; // tuna pridavame ten fifiltrovany album do premmenej
-    // potom uložiť  newAudio1 do toho OneAlbum
-    const One_Album_With_New_Audio = {
-        ...OneAlbum, // vyberame všetky predošle hodnoty
-        audio: [...OneAlbum.audio, newAudio1],
-    };
-
-    const albums1 = state.albums.map((album) =>
-        album.id === dispatchedAction.value ? One_Album_With_New_Audio : album
-    );
+    const OneAlbum = OneAlbumList[0];
+    if (OneAlbum === undefined) {
+        return albums
+    } else {
 
 
-    return albums1
+
+        // tuna pridavame ten fifiltrovany album do premmenej
+        // potom uložiť  newAudio1 do toho OneAlbum
+        const One_Album_With_New_Audio = {
+            ...OneAlbum, // vyberame všetky predošle hodnoty
+            audio: [...OneAlbum.audio, newAudio1],
+        };
+
+        const albums1 = albums.map((album) =>
+            album.id === dispatchedAction.value ? One_Album_With_New_Audio : album
+        );
+        return albums1
 
 
+    }
 }
+
 
 const theme = createTheme({
     components: {
@@ -118,10 +126,10 @@ const myReducer = (state, dispatchedAction) => {
                 },
             };
         case "ADD_SONG_TO_ALBUM":
-
+            const album1 = AddSongToAlbum(state.albums, dispatchedAction)
             return {
                 ...state,
-                albums: AddSongToAlbum(state.albums1, state.albums)
+                albums: album1
 
             }
 

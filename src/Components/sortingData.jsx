@@ -38,6 +38,7 @@ export const sortAlbumsReverse = (albums) => { // parameter sa posiela do funkci
 const sortingData = () => { // stale ked sa refreshne komponent tak sa vola len kod vo vnutri komponentu
     const [state, dispatch] = useContext(DataContext);
     const AlbumSorting = sortAlbumsAlphabetically(state.albums);// cely kod 
+    // ta premenna AlbumSorting je uložisko pre to čo vraciame return AlbumsSortedReversed
     // sortAlbumAlphabeticaly sa spusti až ked sa zavola funkcia() keby som to return vymazal tak aj ked zavolame funkciu tak 
     // vysledok by bol undefined.
     const AlbumReversed = sortAlbumsReverse(state.albums);
