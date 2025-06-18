@@ -23,19 +23,12 @@ const audioList = (props) => {
 
             </div>
             <div className="songs-list">
-
-                {!!songs && songs.map(oneAudio => { // najprv sa premeni ten list na true or false a potom ten and and že ked ta predošla vec je pravdiva tak
-                    // idem cez funkciu map. ak je true prejde na map funkciu.
-
-
+                {!!songs && songs.map(oneAudio => {
                     return (
-
                         <div>
                             <div>
                                 <AudioCard oneSong={oneAudio} oneSong1={oneAudio} />
-
                             </div>
-
                         </div>
                     )
                 })}

@@ -6,9 +6,6 @@
 
 }
 
-
-
-
 .Albums-wrapper {
     padding: 1.8rem;
     background-color: #121212;
@@ -19,15 +16,12 @@
     flex: 1;
 }
 
-
-
 .Audio-wrapper {
     display: flex;
     flex-direction: column;
     flex: 3;
 
 }
-
 
 .delete-button1 {
     padding: 1.5rem;
@@ -42,6 +36,8 @@
 
 .albums {
     background-color: #1E1E1E;
+    margin-top: 1rem;
+    border-radius: 1rem;
 }
 
 .add-album {

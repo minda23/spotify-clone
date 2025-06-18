@@ -11,6 +11,7 @@ import SvgIcon from '@mui/material/SvgIcon';
 import SortingData from "./sortingData";
 import Home from "./Home";
 import Dialog from "@mui/material/Dialog";
+import Typography from '@mui/material/Typography';
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import Snackbar from "@mui/material/Snackbar";
@@ -20,34 +21,30 @@ import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
-// ked mam nejaky bug najdôležitejšie je pochopiť prečo je ten error na ktorom bode,tlačidku alebo na čom to vyskoči a kde
-// presne sa nachádza a tak skôr vedieť ako to vyriešiť.
+
 const initialState = {
     albums: [],
     audios: [],
     selectedAlbum: null,
     selectedAudio: null,
-    isModalOpen: false, // toto je boolean
-    isPremiumModalOpen: false,
-    modalSong: null, // ak incializujeme zakladny state kde je datova typ objekt davame null(prazdny objekt)
+    isModalOpen: false,
+    modalSong: null,
 };
 
 export const isAlbumDuplicate = (state, name) => {
     const firstAlbum = state.albums.find((album) =>
         album.title === name ? true : false
-    ); // find fukncia vracia prvy album objekt
+    );
 
     if (firstAlbum === undefined) {
         return false;
     } else {
-        return true; // else sa použiva stale na negaciu, je to naša posledna podmienka ak sa nesplni nič bud if alebo else IF
-    } // return sa može vnimať ako správa ktore posielame naspať na to
-    // miesto kde sa zavolala tá funkcia.
+        return true;
+    }
+
 };
 
-
 export const AddSongToAlbum = (albums, dispatchedAction) => {
-    // možne vysledky : true or false
     const newAudio1 = dispatchedAction.value1;
     const OneAlbumList = albums.filter((album) =>
         album.id === dispatchedAction.value ? true : false
@@ -59,10 +56,8 @@ export const AddSongToAlbum = (albums, dispatchedAction) => {
 
 
 
-        // tuna pridavame ten fifiltrovany album do premmenej
-        // potom uložiť  newAudio1 do toho OneAlbum
         const One_Album_With_New_Audio = {
-            ...OneAlbum, // vyberame všetky predošle hodnoty
+            ...OneAlbum,
             audio: [...OneAlbum.audio, newAudio1],
         };
 
@@ -70,11 +65,13 @@ export const AddSongToAlbum = (albums, dispatchedAction) => {
             album.id === dispatchedAction.value ? One_Album_With_New_Audio : album
         );
         return albums1
-
-
     }
 }
 
+export const AddSongToSelectedAlbum = (newState) => {
+    const selectedAlbum = newState
+    return selectedAlbum
+}
 
 const theme = createTheme({
     components: {
@@ -102,10 +99,7 @@ const myReducer = (state, dispatchedAction) => {
             };
         case "SELECT_ALBUM":
             console.log(state.selectedAlbum);
-            //const removeSelectedAudio = state.albums.filter((item) => item != state.selectedAudio)
-
             return {
-
                 ...state,
                 selectedAlbum: dispatchedAction.value,
                 selectedAudio: null,
@@ -118,13 +112,16 @@ const myReducer = (state, dispatchedAction) => {
             };
         case "ADD_AUDIO_TO_SELECTED_ALBUM":
             const newAudio = dispatchedAction.value;
-            return {
+            const newState = {
                 ...state,
                 selectedAlbum: {
                     ...state.selectedAlbum,
                     audio: [...state.selectedAlbum.audio, newAudio],
                 },
             };
+
+            return newState;
+
         case "ADD_SONG_TO_ALBUM":
             const album1 = AddSongToAlbum(state.albums, dispatchedAction)
             return {
@@ -132,7 +129,6 @@ const myReducer = (state, dispatchedAction) => {
                 albums: album1
 
             }
-
 
         case "UPDATE_FILTERED_ALBUMS":
             return {
@@ -186,23 +182,21 @@ const myReducer = (state, dispatchedAction) => {
         case "OPEN_MODAL_PREMIUM":
             return {
                 ...state,
-                isPremiumModalOpen: true,
+                isModalOpen: true,
             };
 
         case "CLOSE_MODAL_PREMIUM":
             return {
                 ...state,
-                isPremiumModalOpen: false,
+                isModalOpen: false,
                 modalSong: null,
             };
-
-
     }
 };
 const Albums = (props) => {
     const [name, setName] = useState("");
     const [image, setImage] = useState();
-    const [open, setOpen] = useState(false); // setOpen je funkcia ktora može zmeniť hodnotu open
+    const [open, setOpen] = useState(false);
     const [openSnack, setOpensnack] = useState(false);
     const [error, setError] = useState("");
     const [state, dispatch] = useReducer(myReducer, initialState);
@@ -228,23 +222,20 @@ const Albums = (props) => {
         fetch("http://localhost:8080/albums")
             .then(
                 (
-                    response // dostavame list albumov ten prvy fetch
+                    response
                 ) => response.json()
             )
-            .then((data) => dispatch({ type: "UPDATE_ALBUMS", value: data })); // dispatch musi tam pridať informaciu lebo priamo spušta akciu
-        //Tuna musime o tieto data žiadať lebo použivame vlastne cyklus Map,  čiže to dáva správnu logiku.
-    }, []); // useEffect ked tam nedáme ten prazdny list tak sa to bude spuštať donekonečna.
+            .then((data) => dispatch({ type: "UPDATE_ALBUMS", value: data }));
+    }, []);
 
     useEffect(() => {
         fetch("http://localhost:8080/audios")
             .then(
                 (
-                    response // dostavame list albumov ten prvy fetch
+                    response
                 ) => response.json()
             )
-            .then((data) => dispatch({ type: "GET_SONGS", value: data })); // dispatch musi tam pridať informaciu lebo priamo spušta akciu
-        //Tuna musime o tieto data žiadať lebo použivame vlastne cyklus Map,  čiže to dáva správnu logiku.
-        // data su pesničky z backendu
+            .then((data) => dispatch({ type: "GET_SONGS", value: data }));
     }, []);
 
 
@@ -252,7 +243,7 @@ const Albums = (props) => {
         if (isAlbumDuplicate(state, name) === true) {
             setError(`Album "${name}" already exists!`);
             handleClick();
-            return; // poouživa sa nielen na vracanie hodnôt ale aj na predčasne ukončenie funckie.
+            return;
         }
 
         const formData = new FormData();
@@ -261,9 +252,7 @@ const Albums = (props) => {
         formData.append('image', image);
         formData.append('fileName', image.name);
 
-
         fetch("http://localhost:8080/albums-v2", {
-            // cez tento fetch dostavame novy album
             method: "POST",
             body: formData
         })
@@ -308,12 +297,6 @@ const Albums = (props) => {
 
 
                 <SearchBar />
-
-
-
-
-
-
 
                 <div className="wrapper-main">
 
@@ -397,21 +380,6 @@ const Albums = (props) => {
 
 
                     /></div>}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
                 </div>
             </DataContext.Provider >
         </ThemeProvider>

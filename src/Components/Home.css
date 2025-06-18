@@ -1,23 +1,13 @@
 .Home-data {
     display: grid;
     grid-template-columns: repeat(3, 0.5fr);
-
-
-
 }
-
 
 .Album {
     color: #ffffff;
     margin: 1rem;
     padding: 1rem;
     margin-top: 5rem;
-
-
-
-
-
-
 }
 
 .text-album {
@@ -30,8 +20,6 @@
     background-color: #2A2A2A;
     transition: 0.3s;
     border-radius: 2rem;
-
-
 }
 
 .Image-album {

@@ -39,12 +39,11 @@ const searchBar = () => {
 
     function HomeIcon(props) {
         return (
-            <SvgIcon onClick={() => dispatch({ type: "CLEAR_ALBUM_AND_SONG" })} {...props}>
+            <SvgIcon style={{ marginTop: "0.8rem" }} onClick={() => dispatch({ type: "CLEAR_ALBUM_AND_SONG" })} {...props}>
                 <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
             </SvgIcon>
         );
     }
-    // dvojite a trojite rovna sa použiva v podmienke == maju slabšiu silu ako === 
 
     const [value, setValue] = useState("");
     const theme = createTheme({
@@ -54,9 +53,7 @@ const searchBar = () => {
                     root: {
                         backgroundColor: '#1DB954',
                         width: '15rem',
-
                     },
-
                 }
             },
             MuiStack: {
@@ -72,10 +69,7 @@ const searchBar = () => {
                         gap: "1rem",
 
                     },
-
-
                 },
-
             },
             MuiSvgIcon: {
                 styleOverrides: {
@@ -107,19 +101,14 @@ const searchBar = () => {
             MuiButton: {
                 styleOverrides: {
                     root: {
-                        marginTop: '1rem',
+                        marginTop: '3rem',
                         color: 'white'
                     }
                 }
             }
-
-
-
-
         }
 
     });
-
 
     return (
         <div>
@@ -139,7 +128,7 @@ const searchBar = () => {
                         className="spotify-logo"
                     />
                     <Autocomplete
-                        style={{ display: "flex", flexWrap: "wrap", fontSize: "0.2rem" }}
+                        style={{ display: "flex", flexWrap: "wrap", fontSize: "0.2rem", marginTop: "0.5rem" }}
                         id="free-solo-demo"
                         options={state.audios.map((option) => option.title)}
                         renderInput={(params) => (
@@ -159,9 +148,9 @@ const searchBar = () => {
                         }}
                     />
                     <HomeIcon fontSize="large" />
-                    <Button onClick={setOpen} variant="contained" className="btn" type="text">Explore premium</Button>
-                    <Button className="btn" type="text">Install app</Button>
-                    <Avatar sx={{ bgcolor: deepOrange[500] }}>N</Avatar>
+                    <Button style={{ marginTop: "0.5rem" }} onClick={setOpen} variant="contained" className="btn" type="text">Explore premium</Button>
+                    <Button style={{ marginTop: "0.4rem" }} className="btn" type="text">Install app</Button>
+                    <Avatar style={{ marginTop: "0.4rem" }} sx={{ bgcolor: deepOrange[500] }}>N</Avatar>
                 </Stack>
                 <Modal
                     open={open}
@@ -211,8 +200,5 @@ const searchBar = () => {
         </div >
     );
 }
-
-
-
 
 export default searchBar;

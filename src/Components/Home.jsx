@@ -6,22 +6,11 @@ import "./Home.css";
 import { useState, useContext } from "react";
 
 
-
-
-
 const Home = (props) => {
     const { url } = props;
     const [state, dispatch] = useContext(DataContext)
 
-
-
-
-
-
-
-
     return (
-
         <>
             <div className="Home-data">
                 <h1 className="text-album">Made for you</h1>
@@ -30,14 +19,9 @@ const Home = (props) => {
                         <img className="Image-album" src={album.url} width="172" height="172"></img>
                         <h1 className="Album-artist">artist</h1>
                         <h1 className="Album-title">{album.title}</h1>
-
-
-
                     </div>
-
                 ))}
                 <div>
-
 
                 </div>
                 <h1 className="text-audio">Episodes for you</h1>
@@ -58,8 +42,6 @@ const Home = (props) => {
 
 
 }
-
-
 
 
 export default Home

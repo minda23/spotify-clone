@@ -12,22 +12,12 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 
 export const sortAlbumsAlphabetically = (albums) => {
-    // parametre su ako správy, // state je správa ktora je na riadku 27 a
-    //  posielame tej funkcii správu a ta funkcia ten state správu potom može použivať ako chce
     let AlbumsSortedAlphabetically = [...albums]
     AlbumsSortedAlphabetically.sort((a, b) => a.title.localeCompare(b.title))
-    // let AlbumsSortedReversed = [...state.albums]
-    //AlbumsSortedReversed.reverse()
-
     return AlbumsSortedAlphabetically
-
-
-
 }
 
-export const sortAlbumsReverse = (albums) => { // parameter sa posiela do funkcie najprv 
-    // a return nam vracia tam kde to volame , čiže na riadku 41
-
+export const sortAlbumsReverse = (albums) => {
     let AlbumsSortedReversed = [...albums]
     AlbumsSortedReversed.reverse()
 
@@ -35,15 +25,10 @@ export const sortAlbumsReverse = (albums) => { // parameter sa posiela do funkci
 }
 
 
-const sortingData = () => { // stale ked sa refreshne komponent tak sa vola len kod vo vnutri komponentu
+const sortingData = () => {
     const [state, dispatch] = useContext(DataContext);
-    const AlbumSorting = sortAlbumsAlphabetically(state.albums);// cely kod 
-    // ta premenna AlbumSorting je uložisko pre to čo vraciame return AlbumsSortedReversed
-    // sortAlbumAlphabeticaly sa spusti až ked sa zavola funkcia() keby som to return vymazal tak aj ked zavolame funkciu tak 
-    // vysledok by bol undefined.
+    const AlbumSorting = sortAlbumsAlphabetically(state.albums);
     const AlbumReversed = sortAlbumsReverse(state.albums);
-    // dávame ho sem a nie mimo lebo chceme aby sa spuštal viackrat a nie len raz 
-    // ked ho dame mimo koponent tak to nebude fungovať ako chceme.
 
     const theme = createTheme({
         components: {
@@ -52,13 +37,7 @@ const sortingData = () => { // stale ked sa refreshne komponent tak sa vola len 
                     root: {
                         backgroundColor: "#1976D2",
                         width: "10rem",
-                        position: "absolute",
-                        left: "45rem",
-                        top: "0rem",
-
-
                     }
-
                 },
             },
             MuiBox: {
@@ -68,7 +47,7 @@ const sortingData = () => { // stale ked sa refreshne komponent tak sa vola len 
                         justifyContent: "center",
                         alignItems: "center",
                         maxHeight: "1rem",
-
+                        marginTop: "2rem"
                     }
                 },
             }

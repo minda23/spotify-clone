@@ -3,7 +3,7 @@ import React from "react";
 import "./AddToAlbumModal.css"
 import Button from '@mui/material/Button';
 import Snackbar from '@mui/material/Snackbar';
-import { useState, useEffect, useReducer, useContext } from "react";
+import { useState, useContext } from "react";
 import DataContext from "./DataContext";
 
 const AddToAlbumModal = (props) => {
@@ -27,7 +27,7 @@ const AddToAlbumModal = (props) => {
         }
         else {
 
-            fetch("http://localhost:8080/albums/add-audio", { // cez tento fetch pridavame audio toto je post request
+            fetch("http://localhost:8080/albums/add-audio", {
                 method: "POST",
                 body: JSON.stringify({
                     "albumid": parseInt(pickedAlbumId),
@@ -91,12 +91,5 @@ const AddToAlbumModal = (props) => {
     )
 
 }
-
-
-
-
-
-
-
 
 export default AddToAlbumModal

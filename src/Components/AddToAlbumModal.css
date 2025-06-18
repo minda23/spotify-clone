@@ -20,9 +20,7 @@
     background-color: white;
     border-radius: 1.2rem;
     opacity: 1;
-    position: relative;
-    left: -6rem;
-    top: -2rem;
+    top: 2rem;
     width: 15rem;
     height: 16rem;
     background-color: #1F1F1F;
@@ -41,8 +39,6 @@
     margin-top: -0.5rem;
     padding: 2rem;
     color: #7EC5BE;
-    position: absolute;
-    left: 5rem;
 }
 
 .select-box option {
@@ -76,10 +72,7 @@
 
 @media (max-width: 720px) {
     .modal-box {
-        position: relative;
-        right: 2rem;
         padding: 1rem;
-        margin-left: 14rem;
 
     }
 
@@ -90,15 +83,9 @@
     }
 
 
-    .buttons1 {
-        margin-left: 2.9rem;
+    .buttons1 {}
 
-    }
-
-    .select-box {
-        position: absolute;
-        left: 2.9rem;
-    }
+    .select-box {}
 
 
 
@@ -112,12 +99,12 @@
 
 @media (max-width: 420px) {
     .modal-box {
-        padding: 1rem;
+        padding: 0.5rem;
 
     }
 
-    .buttons1 {
-        margin-left: 1rem;
+    .modal_items {
+        margin-left: 2.5rem;
     }
 
 
