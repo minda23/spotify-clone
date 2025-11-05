@@ -27,6 +27,7 @@ export const sortAlbumsReverse = (albums) => {
 
 const sortingData = () => {
     const [state, dispatch] = useContext(DataContext);
+    console.log(state.albums)
     const AlbumSorting = sortAlbumsAlphabetically(state.albums);
     const AlbumReversed = sortAlbumsReverse(state.albums);
 

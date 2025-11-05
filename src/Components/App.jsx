@@ -2,6 +2,8 @@
 import React from "react";
 import { useState, useEffect, useReducer } from "react";
 import "./App.css";
+import AlbumService from "../services/albumService";
+import AudioService from "../services/audioService"
 import AlbumCard from "./AlbumCard";
 import AudioList from "./audioList";
 import DataContext from "./DataContext";
@@ -41,7 +43,6 @@ export const isAlbumDuplicate = (state, name) => {
     } else {
         return true;
     }
-
 };
 
 export const AddSongToAlbum = (albums, dispatchedAction) => {
@@ -53,8 +54,6 @@ export const AddSongToAlbum = (albums, dispatchedAction) => {
     if (OneAlbum === undefined) {
         return albums
     } else {
-
-
 
         const One_Album_With_New_Audio = {
             ...OneAlbum,
@@ -107,8 +106,13 @@ const myReducer = (state, dispatchedAction) => {
 
             };
         case "REMOVE_AUDIO_FROM_ALBUMS":
+            const deleteAudio = state.selectedAlbum.audio.filter(item => item.id !== dispatchedAction.value);
             return {
                 ...state,
+                selectedAlbum: {
+                    ...state.selectedAlbum,
+                    audio : deleteAudio
+                }
             };
         case "ADD_AUDIO_TO_SELECTED_ALBUM":
             const newAudio = dispatchedAction.value;
@@ -219,50 +223,41 @@ const Albums = (props) => {
     };
 
     useEffect(() => {
-        fetch("http://localhost:8080/albums")
-            .then(
-                (
-                    response
-                ) => response.json()
-            )
+        AlbumService.getAll()
             .then((data) => dispatch({ type: "UPDATE_ALBUMS", value: data }));
     }, []);
 
     useEffect(() => {
-        fetch("http://localhost:8080/audios")
-            .then(
-                (
-                    response
-                ) => response.json()
-            )
+            AudioService.getSong()
             .then((data) => dispatch({ type: "GET_SONGS", value: data }));
     }, []);
 
 
     const createAlbum = () => {
+          
         if (isAlbumDuplicate(state, name) === true) {
             setError(`Album "${name}" already exists!`);
             handleClick();
             return;
         }
-
+        
         const formData = new FormData();
         formData.append('title', name);
         formData.append('artist', "Lucas");
         formData.append('image', image);
         formData.append('fileName', image.name);
 
-        fetch("http://localhost:8080/albums-v2", {
-            method: "POST",
-            body: formData
-        })
-            .then((response) => {
-                if (response.ok === false) {
-                    return Promise.reject(response);
+            AlbumService.addAlbum()
+            .then((album) => dispatch({ 
+                type: "ADD_ALBUM", 
+                value: {
+                    "title": name,
+                    "artist": "Lucas",
+                    "image": image,
+                    "fileName": image.name,
+                    "url": "./images/" + image.name
                 }
-                return response.json();
-            })
-            .then((album) => dispatch({ type: "ADD_ALBUM", value: album }))
+                 }))
             .catch((error) => {
                 error.text().then((resolvedError) => setError(resolvedError));
             });

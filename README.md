@@ -1,3 +1,15 @@
+Aplikácia je navrhnutá tak, aby vedela pracovať s dátami z dvoch zdrojov – buď zo vzdialeného servera, alebo lokálne.
+Pôvodne bolo cieľom načítavať dáta priamo z online servera, no keďže som nechcel platiť za hosting, rozhodol som sa vytvoriť riešenie, ktoré umožňuje prepínať medzi režimami.
+
+Tento prepínač funguje pomocou boolean hodnoty v samostatných súboroch ako albumService a audioService.
+Podľa nastavenia tejto hodnoty aplikácia:
+
+buď sťahuje dáta zo servera,
+
+alebo načítava lokálne uložené dáta.
+
+Vďaka tomu je možné aplikáciu spúšťať a testovať bez potreby online backendu, no zároveň si zachováva rovnakú štruktúru a logiku ako pri reálnom serveri.
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started

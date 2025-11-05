@@ -11,6 +11,7 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import Avatar from '@mui/material/Avatar';
+import RadioIcon from '@mui/icons-material/Radio';
 import { deepOrange, deepPurple } from '@mui/material/colors';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
@@ -61,7 +62,7 @@ const searchBar = () => {
                     root: {
                         width: "500",
                         justifyContent: "center",
-                        alignContent: "center",
+                        alignItems: "center",
                         marginTop: "3.5rem",
                         marginleft: "-2rem",
                         display: "flex",
@@ -81,14 +82,6 @@ const searchBar = () => {
                 },
             },
 
-            MuiAvatar: {
-                styleOverrides: {
-                    root: {
-                        position: "relative",
-                        top: "0.5rem"
-                    }
-                }
-            },
 
             MuiTextField: {
                 styleOverrides: {
@@ -97,15 +90,6 @@ const searchBar = () => {
                     }
                 }
             },
-
-            MuiButton: {
-                styleOverrides: {
-                    root: {
-                        marginTop: '3rem',
-                        color: 'white'
-                    }
-                }
-            }
         }
 
     });
@@ -113,20 +97,9 @@ const searchBar = () => {
     return (
         <div>
             <ThemeProvider theme={theme}>
-                <Stack spacing={2} direction="row">
-                    <img
-                        style={{
-                            position: "absolute",
-                            left: "3rem",
-                            top: "0.6rem",
-                            display: "flex",
-                            flexWrap: "1rem"
-                        }}
-                        src="images/video-library.png"
-                        height="45"
-                        width="45"
-                        className="spotify-logo"
-                    />
+           
+                <Stack spacing={2} direction="row">  
+                     <RadioIcon color="primary" fontSize="large" />
                     <Autocomplete
                         style={{ display: "flex", flexWrap: "wrap", fontSize: "0.2rem", marginTop: "0.5rem" }}
                         id="free-solo-demo"
@@ -136,6 +109,7 @@ const searchBar = () => {
                                 {...params}
                                 label="Search for audio"
                             />
+                            
                         )}
                         onChange={(event, newValue) => {
                             const filteredAudios = state.audios.filter((audio) => audio.title === newValue)

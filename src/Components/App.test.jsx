@@ -6,18 +6,14 @@ import { expect, test } from 'vitest'
 
 const state1 = {
     albums: [
-
         {
             title: "metallica"
         },
 
     ]
 }
-
 const state2 = {
     albums: [
-
-
         {
             "title": "OneAlbum",
             "id": 0,

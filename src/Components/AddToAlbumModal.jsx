@@ -5,6 +5,7 @@ import Button from '@mui/material/Button';
 import Snackbar from '@mui/material/Snackbar';
 import { useState, useContext } from "react";
 import DataContext from "./DataContext";
+import audioService from "@/services/audioService";
 
 const AddToAlbumModal = (props) => {
     const [error, setError] = useState("")
@@ -26,21 +27,9 @@ const AddToAlbumModal = (props) => {
         if (pickedAlbumId == null) {
         }
         else {
-
-            fetch("http://localhost:8080/albums/add-audio", {
-                method: "POST",
-                body: JSON.stringify({
-                    "albumid": parseInt(pickedAlbumId),
-                    "audioid": state.modalSong.id
-                }),
-            }).then((response) => {
-                if (response.ok === false) {
-                    return Promise.reject(response)
-                }
-                return response.json()
-            })
-                .then((audio) => {
-                    dispatch({ type: "OPEN_MODALS", value: audio })
+            audioService.addSong()
+             .then((audio) => {
+                    dispatch({ type: "OPEN_MODALS", value2: audio })
                 })
                 .catch((error) => {
                     error.text().then(resolvedError => setError(resolvedError))
@@ -56,7 +45,7 @@ const AddToAlbumModal = (props) => {
                         <h1>Modal title</h1>
                     </div>
                     <div>
-                        <p style={{ color: "white" }}>{state.modalSong.title}</p>
+                        <p style={{color:"white"}}>{state.modalSong.title}</p>
                     </div>
                     <div className="buttons1">
                         <Button variant="contained" onClick={() => dispatch({ type: "CLOSE_MODAL" })} className="CLOSE">CLOSE</Button>

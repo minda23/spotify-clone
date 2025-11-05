@@ -8,7 +8,7 @@ const audioList = (props) => {
 
     return (
         <>
-            <div className="album-title-wrapper">
+             <div className="album-title-wrapper">
                 <div className="Album-artist-image">
                     <img className="" src={url}></img>
                 </div>
